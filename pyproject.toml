@@ -1,0 +1,18 @@
+[project]
+name = "yahoo-ai-gm"
+version = "0.1.0"
+description = "AI GM assistant for Yahoo Fantasy Baseball (H2H 5x5)."
+requires-python = ">=3.10"
+dependencies = [
+  "python-dotenv>=1.0.0",
+  "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6.0",
+  "pytest>=8.0.0",
+]
+
+[tool.ruff]
+line-length = 100

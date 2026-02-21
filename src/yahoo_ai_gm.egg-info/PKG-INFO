@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: yahoo-ai-gm
+Version: 0.1.0
+Summary: AI GM assistant for Yahoo Fantasy Baseball (H2H 5x5).
+Requires-Python: >=3.10
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: requests>=2.31.0
+Provides-Extra: dev
+Requires-Dist: ruff>=0.6.0; extra == "dev"
+Requires-Dist: pytest>=8.0.0; extra == "dev"

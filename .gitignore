@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Secrets / tokens
+.env
+oauth.json
+*.token.json
+last_code.txt
+
+# Local outputs
+data/
+logs/
+
+# OS/editor
+.DS_Store
+.vscode/
