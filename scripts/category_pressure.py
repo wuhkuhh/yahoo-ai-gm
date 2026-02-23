@@ -1,15 +1,15 @@
 from __future__ import annotations
 
+import argparse
 import json
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 # Your league cats + IP minimum helper
 CATS = ["R", "HR", "RBI", "SB", "AVG", "W", "K", "SV", "ERA", "WHIP"]
 LOWER_IS_BETTER = {"ERA", "WHIP"}
-HIGHER_IS_BETTER = {"AVG"}  # plus the counting stats
 
 MIN_IP = 20.0
 WEEK_DAYS = 7
@@ -17,8 +17,12 @@ WEEK_DAYS = 7
 DATA_DIR = Path("data")
 
 
-def to_float(s: str) -> Optional[float]:
-    s = (s or "").strip()
+def to_float(s: Any) -> Optional[float]:
+    if s is None:
+        return None
+    if isinstance(s, (int, float)):
+        return float(s)
+    s = str(s).strip()
     if not s:
         return None
     try:
@@ -34,32 +38,29 @@ def load_scoreboard(week: int) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def get_two_teams(sb: dict) -> Tuple[dict, dict, str]:
-    """
-    Returns (your_team, opp_team, your_team_key)
-    """
-    your_team_key = None
-    # Stored in payload.matchup.teams dict keyed by team_key. One is (YOU) in print, but JSON has no tag.
-    # We can infer "you" by matching Settings team_key later; for now, store your key in env or config if desired.
-    # BUT your pull script already knows your team_key and wrote both teams. We’ll use the (YOU) key if present in future.
-    # Here: pick the first team as "you" if we can't detect. We'll print both names anyway.
+def walk_find(obj: Any, key: str) -> List[Any]:
+    """Find all values for a key anywhere in a nested dict/list structure."""
+    out: List[Any] = []
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k == key:
+                out.append(v)
+            out.extend(walk_find(v, key))
+    elif isinstance(obj, list):
+        for item in obj:
+            out.extend(walk_find(item, key))
+    return out
 
-    teams = sb["matchup"]["teams"]
-    keys = list(teams.keys())
-    if len(keys) != 2:
-        raise RuntimeError(f"Expected 2 teams in matchup, found {len(keys)}")
 
-    # Heuristic: if a team key ends with ".t.6" (your team id), treat it as you.
-    for k in keys:
-        if k.endswith(".t.6"):
-            your_team_key = k
-            break
+def first(obj_list: List[Any]) -> Any:
+    return obj_list[0] if obj_list else None
 
-    if your_team_key is None:
-        your_team_key = keys[0]
 
-    opp_key = keys[1] if keys[0] == your_team_key else keys[0]
-    return teams[your_team_key], teams[opp_key], your_team_key
+@dataclass
+class TeamTotals:
+    team_key: str
+    name: str
+    totals: Dict[str, str]  # keep as strings for display
 
 
 def classify_counting(diff: float, cat: str) -> str:
@@ -68,7 +69,6 @@ def classify_counting(diff: float, cat: str) -> str:
     """
     ad = abs(diff)
 
-    # Category-specific "close" thresholds (tweak later)
     close = {
         "R": 6,
         "RBI": 6,
@@ -84,26 +84,16 @@ def classify_counting(diff: float, cat: str) -> str:
     if ad <= close:
         return "EVEN"
     if diff > 0:
-        return "PROTECT" if ad <= safe else "IGNORE"  # too far ahead -> ignore
+        return "PROTECT" if ad <= safe else "IGNORE"
     else:
-        return "PUSH" if ad <= safe else "IGNORE"     # too far behind -> ignore
+        return "PUSH" if ad <= safe else "IGNORE"
 
 
 def classify_ratio(you: float, opp: float, cat: str) -> str:
-    """
-    For AVG: higher is better.
-    For ERA/WHIP: lower is better.
-    """
-    # "closeness" thresholds
-    close = {
-        "AVG": 0.010,   # 10 points
-        "ERA": 0.40,
-        "WHIP": 0.06,
-    }[cat]
+    close = {"AVG": 0.010, "ERA": 0.40, "WHIP": 0.06}[cat]
     safe = close * 3
 
     if cat in LOWER_IS_BETTER:
-        # lower wins
         diff = opp - you  # positive means you are better (lower)
     else:
         diff = you - opp  # positive means you are better (higher)
@@ -117,11 +107,10 @@ def classify_ratio(you: float, opp: float, cat: str) -> str:
         return "PUSH" if ad <= safe else "IGNORE"
 
 
-def ip_pace(ip_str: str) -> str:
-    ip = to_float(ip_str)
+def ip_pace(ip_val: Any) -> str:
+    ip = to_float(ip_val)
     if ip is None:
         return "IP: — (no data yet)"
-    # crude day-of-week pace. We'll treat today as day 1..7 of matchup week (local time).
     day = min(max(datetime.now().isoweekday(), 1), 7)  # Mon=1..Sun=7
     expected_by_today = (MIN_IP / WEEK_DAYS) * day
     if ip >= MIN_IP:
@@ -131,47 +120,140 @@ def ip_pace(ip_str: str) -> str:
     return f"IP: {ip:.1f} (⚠ behind pace; target ~{expected_by_today:.1f} by today)"
 
 
+def extract_matchup_teams_totals(payload: dict) -> Tuple[dict, TeamTotals, TeamTotals]:
+    """
+    Supports two formats:
+      A) normalized: payload has keys like week/status/matchup/teams with totals
+      B) raw Yahoo: deep nested fantasy_content->league->scoreboard->matchups->matchup->teams->team...
+
+    Returns (meta, teamA, teamB) where meta contains week/status if found.
+    """
+    meta = {
+        "week": first(walk_find(payload, "week")),
+        "status": first(walk_find(payload, "status")),
+    }
+
+    # --- Format A: your simplified shape ---
+    if isinstance(payload.get("matchup"), dict) and isinstance(payload["matchup"].get("teams"), dict):
+        teams_dict = payload["matchup"]["teams"]
+        keys = list(teams_dict.keys())
+        if len(keys) == 2:
+            t1 = teams_dict[keys[0]]
+            t2 = teams_dict[keys[1]]
+            team1 = TeamTotals(team_key=keys[0], name=t1.get("name", "Unknown"), totals=t1.get("totals", {}))
+            team2 = TeamTotals(team_key=keys[1], name=t2.get("name", "Unknown"), totals=t2.get("totals", {}))
+            # week/status override if present in top-level
+            if "week" in payload:
+                meta["week"] = payload["week"]
+            if isinstance(payload.get("matchup"), dict) and "status" in payload["matchup"]:
+                meta["status"] = payload["matchup"]["status"]
+            return meta, team1, team2
+
+    # --- Format B: raw Yahoo ---
+    # Find a "matchup" object that actually contains two teams
+    matchups = walk_find(payload, "matchup")
+    matchup_obj = None
+    for m in matchups:
+        if isinstance(m, dict):
+            # try to see if it has teams underneath
+            teams = first(walk_find(m, "team"))
+            if isinstance(teams, list) and len(teams) >= 2:
+                matchup_obj = m
+                break
+    if matchup_obj is None:
+        raise RuntimeError("Could not locate a matchup with two teams in this JSON snapshot.")
+
+    # Extract the two team dicts
+    team_list = first(walk_find(matchup_obj, "team"))
+    if not isinstance(team_list, list) or len(team_list) < 2:
+        raise RuntimeError("Matchup found, but couldn't extract two teams.")
+
+    def team_key(team: dict) -> str:
+        k = team.get("team_key")
+        if isinstance(k, str) and k.strip():
+            return k.strip()
+        k2 = first(walk_find(team, "team_key"))
+        return k2.strip() if isinstance(k2, str) else "unknown"
+
+    def team_name(team: dict) -> str:
+        n = team.get("name")
+        if isinstance(n, str) and n.strip():
+            return n.strip()
+        n2 = first(walk_find(team, "name"))
+        return n2.strip() if isinstance(n2, str) else "Unknown"
+
+    # Totals are not always present; sometimes you only have "team_stats" with stat_id/value.
+    # Your pull_scoreboard_week.py appears to print category lines, so totals likely exist in snapshot.
+    def totals_dict(team: dict) -> Dict[str, str]:
+        # Try direct totals
+        t = team.get("totals")
+        if isinstance(t, dict):
+            return {k: str(v) for k, v in t.items()}
+
+        # Try matchup->teams->team->team_stats->stats->stat list with stat_id/value
+        # We'll map only the categories we care about if we can find "display_name" or pre-mapped names.
+        # If not found, return {} and script will show blanks.
+        return {}
+
+    t1_raw, t2_raw = team_list[0], team_list[1]
+    team1 = TeamTotals(team_key=team_key(t1_raw), name=team_name(t1_raw), totals=totals_dict(t1_raw))
+    team2 = TeamTotals(team_key=team_key(t2_raw), name=team_name(t2_raw), totals=totals_dict(t2_raw))
+
+    return meta, team1, team2
+
+
+def pick_you_vs_opp(team1: TeamTotals, team2: TeamTotals, team_suffix: str) -> Tuple[TeamTotals, TeamTotals]:
+    """
+    team_suffix: something like ".t.6" so we can identify your team_key.
+    Falls back to team1 as 'you' if not found.
+    """
+    if team1.team_key.endswith(team_suffix):
+        return team1, team2
+    if team2.team_key.endswith(team_suffix):
+        return team2, team1
+    return team1, team2
+
+
 def main():
-    # Determine week from latest scoreboard file if not provided
-    # simplest: use week 1 for now
-    week = 1
-    sb = load_scoreboard(week)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--week", type=int, default=1)
+    ap.add_argument("--team-suffix", type=str, default=".t.6", help="Used to identify your team_key, e.g. .t.6")
+    args = ap.parse_args()
 
-    you, opp, you_key = get_two_teams(sb)
+    sb = load_scoreboard(args.week)
+    meta, t1, t2 = extract_matchup_teams_totals(sb)
+    you, opp = pick_you_vs_opp(t1, t2, args.team_suffix)
 
-    you_name = you["name"]
-    opp_name = opp["name"]
+    week = meta.get("week", args.week)
+    status = meta.get("status", "unknown")
 
-    you_totals = you["totals"]
-    opp_totals = opp["totals"]
+    print(f"Week {week} | status={status}")
+    print(f"You: {you.name} [{you.team_key}]")
+    print(f"Opp: {opp.name} [{opp.team_key}]\n")
 
-    # Preseason / empty detection
+    you_totals = you.totals or {}
+    opp_totals = opp.totals or {}
+
     any_numbers = False
-    for cat in CATS:
-        if to_float(you_totals.get(cat, "")) is not None or to_float(opp_totals.get(cat, "")) is not None:
+    for cat in CATS + ["IP"]:
+        if to_float(you_totals.get(cat)) is not None or to_float(opp_totals.get(cat)) is not None:
             any_numbers = True
             break
 
-    print(f"Week {sb['week']} | status={sb['matchup']['status']}")
-    print(f"You: {you_name}")
-    print(f"Opp: {opp_name}\n")
-
     if not any_numbers:
         print("No stat values yet (preseason / preevent).")
-        print("Run this again once Week 1 starts and the scoreboard populates.\n")
-        # Still show IP pacing placeholder
-        print(ip_pace(you_totals.get("IP", "")))
+        print("Run this again once matchups start and the scoreboard populates.\n")
+        print(ip_pace(you_totals.get("IP")))
         return
 
-    # Output pressure table
     print("Category pressure (YOU vs OPP):")
     print("-" * 72)
 
     for cat in CATS:
-        y = to_float(you_totals.get(cat, ""))
-        o = to_float(opp_totals.get(cat, ""))
-        y_disp = you_totals.get(cat, "")
-        o_disp = opp_totals.get(cat, "")
+        y = to_float(you_totals.get(cat))
+        o = to_float(opp_totals.get(cat))
+        y_disp = str(you_totals.get(cat, ""))
+        o_disp = str(opp_totals.get(cat, ""))
 
         if y is None or o is None:
             label = "—"
@@ -184,7 +266,7 @@ def main():
         print(f"{cat:>4} | you={y_disp:>8} | opp={o_disp:>8} | {label}")
 
     print("-" * 72)
-    print(ip_pace(you_totals.get("IP", "")))
+    print(ip_pace(you_totals.get("IP")))
 
 
 if __name__ == "__main__":
