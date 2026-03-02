@@ -20,6 +20,7 @@ class MatchupSnapshot(BaseModel):
     week: int
     my_team: TeamTotals
     opp_team: TeamTotals
+    status: Optional[str] = None
 
 
 class PlayerSnapshot(BaseModel):
@@ -63,6 +64,7 @@ class PressureReport(BaseModel):
     week: int
     team_key: str
     generated_at: datetime = Field(default_factory=datetime.utcnow)
+    matchup_status: Optional[str] = None
     pressures: List[CategoryPressure]
 
 

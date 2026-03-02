@@ -118,5 +118,6 @@ def _parse_matchup(*, week: int, my_team_key: str, scoreboard_raw: Any) -> Match
 
     my = parse_team(my_team_raw)
     opp = parse_team(opp_team_raw)
+    matchup_status = str(matchup.get("status") or "").strip() or None
 
-    return MatchupSnapshot(week=week, my_team=my, opp_team=opp)
+    return MatchupSnapshot(week=week, my_team=my, opp_team=opp, status=matchup_status)

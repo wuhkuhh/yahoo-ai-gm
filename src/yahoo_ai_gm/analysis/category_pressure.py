@@ -41,5 +41,6 @@ def pressure_report(snapshot: Snapshot) -> PressureReport:
     return PressureReport(
         week=snapshot.week,
         team_key=snapshot.roster.team_key,
+        matchup_status=snapshot.matchup.status,
         pressures=pressures,
     )
