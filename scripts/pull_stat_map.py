@@ -1,64 +1,50 @@
-from __future__ import annotations
-
 import json
+import os
 from pathlib import Path
 import xml.etree.ElementTree as ET
+import requests
 
 from yahoo_ai_gm.yahoo_client import YahooClient
+from yahoo_ai_gm.settings import Settings
 
-NS = {"y": "http://fantasysports.yahooapis.com/fantasy/v2/base.rng"}
 
-DATA_DIR = Path("data")
-DATA_DIR.mkdir(parents=True, exist_ok=True)
+def _strip_ns(root):
+    for el in root.iter():
+        if "}" in el.tag:
+            el.tag = el.tag.split("}", 1)[1]
+    return root
 
-def t(node: ET.Element, path: str, default: str = "") -> str:
-    el = node.find(path, NS)
-    return el.text.strip() if el is not None and el.text else default
 
-def main():
-    client = YahooClient.from_local_config()
-    league_key = client.settings.league_key  # e.g. 469.l.40206
+def _text(node, path, default=""):
+    found = node.find(path)
+    return found.text.strip() if (found is not None and found.text) else default
 
-    xml = client.get(f"league/{league_key}/settings")
-    root = ET.fromstring(xml)
 
-    # Yahoo's stat categories are under league/settings/stat_categories
-    stats = root.findall(".//y:stat_categories/y:stats/y:stat", NS)
-    if not stats:
-        # some responses nest differently, fallback
-        stats = root.findall(".//y:stat", NS)
+def main() -> None:
+    settings = Settings.from_local_config()
+    session = requests.Session()
+    client = YahooClient(settings=settings, session=session)
+
+    league_key = os.getenv("YAHOO_LEAGUE_KEY", "").strip() or f"469.l.{settings.league_id}"
+
+    # League settings includes stat_categories with stat_id + name
+    xml_text = client.get(f"league/{league_key}/settings")
+    root = _strip_ns(ET.fromstring(xml_text))
 
     stat_map = {}
-    for s in stats:
-        stat_id = t(s, "y:stat_id")
-        name = t(s, "y:name")
-        display_name = t(s, "y:display_name") or name
-        group = t(s, "y:stat_group")  # often 'batting' or 'pitching'
-        # Some leagues include these:
-        position_type = t(s, "y:position_type")  # B or P
-        sort_order = t(s, "y:sort_order")
-        is_only_display = t(s, "y:is_only_display_stat")
+    cats = root.findall(".//stat_categories//stat")
+    for st in cats:
+        stat_id = _text(st, "stat_id")
+        name = _text(st, "name")
+        if stat_id and name:
+            stat_map[stat_id] = name
 
-        if stat_id:
-            stat_map[stat_id] = {
-                "name": name,
-                "display_name": display_name,
-                "group": group,
-                "position_type": position_type,
-                "sort_order": sort_order,
-                "is_only_display_stat": is_only_display,
-            }
+    out_path = Path("data/stat_map.json")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps({"league_key": league_key, "stat_map": stat_map}, indent=2), encoding="utf-8")
 
-    out_path = DATA_DIR / "stat_map.json"
-    with out_path.open("w", encoding="utf-8") as f:
-        json.dump(stat_map, f, indent=2, sort_keys=True)
+    print(f"Wrote {len(stat_map)} stat ids -> {out_path}")
 
-    print(f"Saved {len(stat_map)} stat definitions -> {out_path}")
-
-    # Print the most relevant stuff to screen for quick sanity
-    print("\n--- Stat IDs (id -> display_name) ---")
-    for sid in sorted(stat_map.keys(), key=lambda x: int(x) if x.isdigit() else 9999):
-        print(f"{sid:>4} -> {stat_map[sid]['display_name']}")
 
 if __name__ == "__main__":
     main()

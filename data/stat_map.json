@@ -1,0 +1,17 @@
+{
+  "league_key": "469.l.40206",
+  "stat_map": {
+    "60": "Hits / At Bats",
+    "7": "Runs",
+    "12": "Home Runs",
+    "13": "Runs Batted In",
+    "16": "Stolen Bases",
+    "3": "Batting Average",
+    "50": "Innings Pitched",
+    "28": "Wins",
+    "32": "Saves",
+    "42": "Strikeouts",
+    "26": "Earned Run Average",
+    "27": "(Walks + Hits)/ Innings Pitched"
+  }
+}
