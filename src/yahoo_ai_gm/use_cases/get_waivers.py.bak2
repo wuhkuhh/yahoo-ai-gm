@@ -1,0 +1,40 @@
+from dataclasses import dataclass
+from typing import Any, Dict
+
+from yahoo_ai_gm.snapshot.build import build_snapshot
+from yahoo_ai_gm.analysis.category_pressure import build_pressure_v1
+from yahoo_ai_gm.analysis.waiver_engine import generate_waiver_report
+
+
+@dataclass(frozen=True)
+class WaiverInputs:
+    league_key: str
+    team_key: str
+    week: int
+
+
+def get_waivers(inputs: WaiverInputs, yahoo_client, data_repo) -> Dict[str, Any]:
+    roster = yahoo_client.get_roster(inputs.team_key)
+    scoreboard = yahoo_client.get_scoreboard(inputs.league_key, inputs.week)
+    waiver_pool = yahoo_client.get_waiver_pool(inputs.league_key)
+
+    stat_map = data_repo.load_stat_map()
+    waiver_pool_baseline = data_repo.load_waiver_pool_baseline()
+    rp_pool_baseline = data_repo.load_rp_pool_baseline()
+
+    snapshot = build_snapshot(roster=roster, stat_map=stat_map)
+
+    pressure = build_pressure_v1(
+        snapshot=snapshot,
+        scoreboard=scoreboard,
+        week=inputs.week,
+    )
+
+    report = generate_waiver_report(
+        snapshot=snapshot,
+        pressure=pressure,
+        waiver_pool=waiver_pool,
+        waiver_pool_baseline=waiver_pool_baseline,
+        rp_pool_baseline=rp_pool_baseline,
+    )
+    return report

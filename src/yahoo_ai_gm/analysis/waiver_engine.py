@@ -294,7 +294,6 @@ def waiver_recommendations(
     return WaiverReport(
         week=snapshot.week,
         team_key=snapshot.roster.team_key,
-        generated_at=None,
         suggestions=suggestions,
     )
 
