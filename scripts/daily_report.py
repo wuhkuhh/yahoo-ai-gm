@@ -151,6 +151,44 @@ def main() -> None:
     print(f"[daily_report] Saved -> {out_path}")
     print(f"[daily_report] Saved -> {latest_path}")
 
+    # Generate PDF
+    pdf_path = REPORTS_DIR / f'report_{date_slug}_week_{week}.pdf'
+    latest_pdf = REPORTS_DIR / 'latest.pdf'
+    try:
+        import importlib.util as _ilu2
+        _spec2 = _ilu2.spec_from_file_location('generate_pdf', 'scripts/generate_pdf_report.py')
+        _pdf_mod = _ilu2.module_from_spec(_spec2)
+        _spec2.loader.exec_module(_pdf_mod)
+        _pdf_mod.markdown_to_pdf(report_text, pdf_path)
+        latest_pdf.write_bytes(pdf_path.read_bytes())
+        print(f'[daily_report] PDF -> {pdf_path}')
+    except Exception as e:
+        print(f'[daily_report] PDF generation failed: {e}')
+
+    # Send email
+    try:
+        import os
+        mail_from = os.environ.get('MAIL_FROM', '').strip()
+        mail_to   = os.environ.get('MAIL_TO', '').strip()
+        mail_pass = os.environ.get('MAIL_APP_PASSWORD', '').strip()
+        if mail_from and mail_to and mail_pass and latest_pdf.exists():
+            import importlib.util as _ilu3
+            _spec3 = _ilu3.spec_from_file_location('send_email', 'scripts/send_report_email.py')
+            _mail_mod = _ilu3.module_from_spec(_spec3)
+            _spec3.loader.exec_module(_mail_mod)
+            _mail_mod.send_report(
+                md_path=latest_path,
+                pdf_path=latest_pdf,
+                mail_from=mail_from,
+                mail_to=mail_to,
+                app_password=mail_pass,
+                week=week,
+            )
+        else:
+            print('[daily_report] Email skipped: MAIL_* env vars not set or PDF missing.')
+    except Exception as e:
+        print(f'[daily_report] Email failed: {e}')
+
 
 if __name__ == "__main__":
     main()
