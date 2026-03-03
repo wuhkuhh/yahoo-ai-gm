@@ -285,3 +285,27 @@ def get_trade_value(week: int = Query(None)):
         "all_players": report.players,
     }
 
+
+@app.get("/trades/acceptance")
+def get_trade_acceptance(
+    week: int = Query(None),
+    n: int = Query(default=10, ge=1, le=20),
+    n_teams: int = Query(default=10, ge=2, le=20),
+):
+    from yahoo_ai_gm.use_cases.get_trade_acceptance import get_trade_acceptance_report
+    data_dir = Path("data")
+    try:
+        report = get_trade_acceptance_report(
+            data_dir=data_dir,
+            week=week,
+            n_suggestions=n,
+            n_teams=n_teams,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "suggestions": report.suggestions,
+    }
+
