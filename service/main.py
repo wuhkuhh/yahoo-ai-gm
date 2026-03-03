@@ -195,3 +195,36 @@ def get_ratio_risk(week: int = Query(None)):
         "profiles": report.profiles,
     }
 
+
+@app.get("/adddrop/execute")
+def execute_adddrop(
+    week: int = Query(None),
+    max_moves: int = Query(default=6, ge=1, le=10),
+    dry_run: bool = Query(default=True, description="Set false only if YAHOO_AUTO_EXECUTE=true"),
+):
+    from yahoo_ai_gm.use_cases.execute_adddrop import get_execution_report
+    import os
+    data_dir = Path("data")
+    auto_execute = os.environ.get("YAHOO_AUTO_EXECUTE", "false").strip().lower() == "true"
+    # API can never override the env var gate
+    effective_dry_run = True if not auto_execute else dry_run
+    try:
+        report = get_execution_report(
+            data_dir=data_dir,
+            week=week,
+            max_moves=max_moves,
+            dry_run=effective_dry_run,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "dry_run": report.dry_run,
+        "auto_execute_enabled": report.auto_execute_enabled,
+        "moves_planned": report.moves_planned,
+        "moves_attempted": report.moves_attempted,
+        "moves_succeeded": report.moves_succeeded,
+        "results": report.results,
+    }
+

@@ -42,3 +42,16 @@ class YahooClient:
         resp = self.session.get(url, headers=self._auth_headers(), params=params, timeout=timeout)
         resp.raise_for_status()
         return resp.text
+
+    def post(self, path: str, *, body: str, timeout: int = 30) -> str:
+        """
+        POST wrapper for write operations (transactions).
+        `body` should be XML string.
+        Returns raw XML response text.
+        """
+        url = YAHOO_FANTASY_API_BASE + path.lstrip("/")
+        headers = self._auth_headers()
+        headers["Content-Type"] = "application/xml"
+        resp = self.session.post(url, headers=headers, data=body.encode("utf-8"), timeout=timeout)
+        resp.raise_for_status()
+        return resp.text
