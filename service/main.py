@@ -136,3 +136,21 @@ def get_matchup(week: int = Query(None)):
         **report.projection,
     }
 
+
+@app.get("/trades/multi")
+def get_multi_trades(
+    n: int = Query(default=10, ge=1, le=20, description="Suggestions per trade size"),
+    n_teams: int = Query(default=10, ge=2, le=20, description="League size"),
+):
+    from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
+    data_dir = Path("data")
+    try:
+        report = get_multi_trade_report(data_dir=data_dir, n_suggestions=n, n_teams=n_teams)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "roster_size": report.roster_size,
+        "trade_sizes": report.trade_sizes,
+    }
+
