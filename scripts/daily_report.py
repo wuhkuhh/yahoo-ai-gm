@@ -134,6 +134,28 @@ def _fmt_matchup(matchup: dict) -> str:
     return '\n'.join(out)
 
 
+
+def _fmt_adddrop(plan: dict) -> str:
+    out = []
+    out.append('## Add/Drop Simulation\n')
+    if not plan or not plan.get('moves'):
+        out.append('_No add/drop moves suggested._\n')
+        return '\n'.join(out)
+    before = plan.get('projected_record_before', {})
+    after  = plan.get('projected_record_after', {})
+    flipped = plan.get('categories_flipped', [])
+    out.append(f'_Projected record: {before.get("wins",0)}-{before.get("losses",0)}-{before.get("toss_ups",0)} → {after.get("wins",0)}-{after.get("losses",0)}-{after.get("toss_ups",0)}_')
+    if flipped:
+        out.append(f'**Categories flipped to win:** {", ".join(flipped)}\n')
+    for m in plan.get('moves', []):
+        out.append(f'**Move {m["move_number"]}:** Add {m["add"]["name"]} / Drop {m["drop"]["name"]}')
+        out.append(f'- Improves: {", ".join(m.get("cats_improved", []))}')
+        if m.get('cats_hurt'):
+            out.append(f'- Costs: {", ".join(m.get("cats_hurt", []))}')
+        out.append(f'- {m.get("rationale", "")}')
+        out.append('')
+    return '\n'.join(out)
+
 def _fmt_multi_trades(trade_sizes: dict) -> str:
     out = []
     out.append('## Multi-Player Trade Suggestions\n')
@@ -210,6 +232,13 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Matchup projection failed: {e}')
         matchup_data = {}
+    from yahoo_ai_gm.use_cases.get_adddrop import get_adddrop_report
+    try:
+        adddrop_report = get_adddrop_report(data_dir=Path('data'))
+        adddrop_plan = adddrop_report.plan
+    except Exception as e:
+        print(f'[daily_report] Add/drop simulation failed: {e}')
+        adddrop_plan = {}
     from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
     try:
         import signal
@@ -242,6 +271,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_matchup(matchup_data))
     lines.append('')
     lines.append(_fmt_multi_trades(multi_trade_sizes))
+    lines.append('')
+    lines.append(_fmt_adddrop(adddrop_plan))
 
     return "\n".join(lines), date_slug
 
