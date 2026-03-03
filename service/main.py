@@ -120,3 +120,19 @@ def get_trades(
         "suggestion_count": len(report.suggestions),
         "suggestions": report.suggestions,
     }
+
+
+@app.get("/matchup")
+def get_matchup(week: int = Query(None)):
+    from yahoo_ai_gm.use_cases.get_matchup import get_matchup_report
+    data_dir = Path("data")
+    try:
+        report = get_matchup_report(data_dir=data_dir, week=week)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        **report.projection,
+    }
+
