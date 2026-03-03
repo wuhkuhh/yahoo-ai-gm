@@ -228,3 +228,24 @@ def execute_adddrop(
         "results": report.results,
     }
 
+
+@app.get("/standings")
+def get_standings(
+    week: int = Query(default=1, ge=1, le=23),
+    n_teams: int = Query(default=10, ge=2, le=20),
+):
+    from yahoo_ai_gm.use_cases.get_standings import get_standings_report
+    data_dir = Path("data")
+    try:
+        report = get_standings_report(
+            data_dir=data_dir,
+            current_week=week,
+            n_teams=n_teams,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        **report.trajectory,
+    }
+
