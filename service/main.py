@@ -154,3 +154,28 @@ def get_multi_trades(
         "trade_sizes": report.trade_sizes,
     }
 
+
+@app.get("/adddrop")
+def get_adddrop(
+    week: int = Query(None),
+    max_moves: int = Query(default=6, ge=1, le=10),
+    n_teams: int = Query(default=10, ge=2, le=20),
+):
+    from yahoo_ai_gm.use_cases.get_adddrop import get_adddrop_report
+    data_dir = Path("data")
+    try:
+        report = get_adddrop_report(
+            data_dir=data_dir,
+            week=week,
+            max_moves=max_moves,
+            n_teams=n_teams,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "max_moves": report.max_moves,
+        **report.plan,
+    }
+
