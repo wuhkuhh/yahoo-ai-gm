@@ -179,3 +179,19 @@ def get_adddrop(
         **report.plan,
     }
 
+
+@app.get("/ratio-risk")
+def get_ratio_risk(week: int = Query(None)):
+    from yahoo_ai_gm.use_cases.get_ratio_risk import get_ratio_risk_report
+    data_dir = Path("data")
+    try:
+        report = get_ratio_risk_report(data_dir=data_dir, week=week)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "pitcher_count": report.pitcher_count,
+        "profiles": report.profiles,
+    }
+

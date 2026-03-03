@@ -135,6 +135,39 @@ def _fmt_matchup(matchup: dict) -> str:
 
 
 
+
+def _fmt_ratio_risk(profiles: list) -> str:
+    out = []
+    out.append('## Pitcher Ratio Risk\n')
+    if not profiles:
+        out.append('_No pitcher risk profiles available._\n')
+        return '\n'.join(out)
+    label_icon = {'LOW': '🟢', 'MEDIUM': '🟡', 'HIGH': '🟠', 'CRITICAL': '🔴'}
+    rec_map = {'START': 'Start', 'STREAM_CAUTION': 'Stream w/ caution', 'AVOID': 'Avoid', 'STASH': 'Stash'}
+    out.append('| Pitcher | Role | Risk | Score | ERA | FIP | BB/9 | K/9 | Driver |')
+    out.append('|---------|------|------|-------|-----|-----|------|-----|--------|')
+    for p in profiles:
+        icon = label_icon.get(p['risk_label'], '')
+        proj = p.get('projections', {})
+        out.append(
+            f'| {p["name"]} | {p["role"]} | {icon} {p["risk_label"]} | {p["risk_score"]:.1f} |'
+            f' {proj.get("ERA","?"):.3f} | {proj.get("FIP","?"):.3f} |'
+            f' {proj.get("BB/9","?"):.2f} | {proj.get("K/9","?"):.2f} |'
+            f' {p["primary_driver"]} |'
+        )
+    # Add recommendations for non-START pitchers
+    flagged = [p for p in profiles if p['recommendation'] != 'START']
+    if flagged:
+        out.append('')
+        out.append('**Action items:**')
+        for p in flagged:
+            rec = rec_map.get(p['recommendation'], p['recommendation'])
+            ranges = p.get('projected_ranges', {})
+            era_range = ranges.get('ERA', {})
+            out.append(f'- {p["name"]}: {rec} — ERA range {era_range.get("upside","?")}-{era_range.get("downside","?")}, driver: {p["primary_driver"]}')
+    out.append('')
+    return '\n'.join(out)
+
 def _fmt_adddrop(plan: dict) -> str:
     out = []
     out.append('## Add/Drop Simulation\n')
@@ -239,6 +272,13 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Add/drop simulation failed: {e}')
         adddrop_plan = {}
+    from yahoo_ai_gm.use_cases.get_ratio_risk import get_ratio_risk_report
+    try:
+        ratio_report = get_ratio_risk_report(data_dir=Path('data'))
+        ratio_profiles = ratio_report.profiles
+    except Exception as e:
+        print(f'[daily_report] Ratio risk failed: {e}')
+        ratio_profiles = []
     from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
     try:
         import signal
@@ -273,6 +313,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_multi_trades(multi_trade_sizes))
     lines.append('')
     lines.append(_fmt_adddrop(adddrop_plan))
+    lines.append('')
+    lines.append(_fmt_ratio_risk(ratio_profiles))
 
     return "\n".join(lines), date_slug
 
