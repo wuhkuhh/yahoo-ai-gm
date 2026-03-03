@@ -59,14 +59,35 @@ def _severity_color(line: str) -> colors.Color:
     return GREEN
 
 
+# Emoji -> PDF-safe text label map
+_EMOJI_MAP = {
+    "🏆": "[TOP6]",
+    "🔴": "[IL]",
+    "🟡": "[DTD]",
+    "🟢": "[OK]",
+    "🟠": "[HIGH]",
+    "✅": "[WIN]",
+    "❌": "[LOSS]",
+    "⚖️": "[TOSS]",
+    "🎯": "[SWING]",
+    "🚨": "[ALERT]",
+    "⚠️": "[WARN]",
+    "📈": "[UP]",
+}
+
+def _strip_emoji(text: str) -> str:
+    for emoji, label in _EMOJI_MAP.items():
+        text = text.replace(emoji, label)
+    # Drop any remaining non-latin-1 chars reportlab cannot render
+    return text.encode("latin-1", errors="ignore").decode("latin-1")
+
 def _clean(text: str) -> str:
-    """Strip markdown bold/italic/code for plain reportlab paragraphs."""
-    text = re.sub(r"\*\*(.+?)\*\*", r"<b></b>", text)
-    text = re.sub(r"`(.+?)`",        r"<font name='Courier'></font>", text)
-    text = re.sub(r"_(.+?)_",        r"<i></i>", text)
+    """Strip markdown formatting for reportlab paragraphs."""
+    text = _strip_emoji(text)
+    text = re.sub(r"\*\*(.+?)\*\*", lambda m: "<b>" + m.group(1) + "</b>", text)
+    text = re.sub(r"`(.+?)`", lambda m: "<font name=\'Courier\'>" + m.group(1) + "</font>", text)
+    text = re.sub(r"_(.+?)_", lambda m: "<i>" + m.group(1) + "</i>", text)
     return text
-
-
 def _parse_table(lines: list[str]) -> list[list[str]]:
     """Parse a markdown pipe table into list of rows."""
     rows = []
