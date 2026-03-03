@@ -91,6 +91,48 @@ def _fmt_waivers(report) -> str:
 
 
 
+
+def _fmt_matchup(matchup: dict) -> str:
+    out = []
+    out.append('## Matchup Projection\n')
+    if not matchup:
+        out.append('_No matchup data available._\n')
+        return '\n'.join(out)
+    my  = matchup.get('my_team', {}).get('name', '?')
+    opp = matchup.get('opp_team', {}).get('name', '?')
+    rec = matchup.get('projected_record', {})
+    w, l, t = rec.get('wins',0), rec.get('losses',0), rec.get('toss_ups',0)
+    out.append(f'**{my}** vs **{opp}**')
+    out.append(f'_Projected record: {w}W - {l}L - {t}T_\n')
+    swing = matchup.get('swing_categories', [])
+    if swing:
+        out.append(f'**Swing categories** (waiver targets): {", ".join(swing)}\n')
+    # Category table header
+    out.append('| Cat | Mine | Theirs | Delta | Result |')
+    out.append('|-----|------|--------|-------|--------|')
+    result_icon = {'win': '✅', 'loss': '❌', 'toss-up': '⚖️'}
+    for c in matchup.get('categories', []):
+        cat   = c['cat']
+        mine  = c['my_value']
+        theirs= c['opp_value']
+        delta = c['delta']
+        res   = c['result']
+        icon  = result_icon.get(res, res)
+        swing_flag = ' 🎯' if c.get('is_swing') else ''
+        # Format floats nicely
+        if cat in ('AVG', 'ERA', 'WHIP'):
+            fmt = '.3f'
+        elif cat == 'IP':
+            fmt = '.0f'
+        else:
+            fmt = '.1f'
+        out.append(f'| {cat}{swing_flag} | {mine:{fmt}} | {theirs:{fmt}} | {delta:+.3f} | {icon} {res} |')
+    unmatched = matchup.get('my_unmatched_players', [])
+    if unmatched:
+        out.append(f'\n_Unmatched (no FG projection): {", ".join(unmatched)}_')
+    out.append('')
+    return '\n'.join(out)
+
 def _fmt_trades(suggestions: list) -> str:
     out = []
     out.append('## Trade Suggestions\n')
@@ -137,6 +179,13 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Trade suggestions failed: {e}')
         trades_suggestions = []
+    from yahoo_ai_gm.use_cases.get_matchup import get_matchup_report
+    try:
+        matchup_report = get_matchup_report(data_dir=Path('data'))
+        matchup_data = matchup_report.projection
+    except Exception as e:
+        print(f'[daily_report] Matchup projection failed: {e}')
+        matchup_data = {}
 
     now = datetime.now(timezone.utc).astimezone()
     ts = now.strftime("%Y-%m-%d %H:%M:%S %Z")
@@ -153,6 +202,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_waivers(waivers))
     lines.append('')
     lines.append(_fmt_trades(trades_suggestions))
+    lines.append('')
+    lines.append(_fmt_matchup(matchup_data))
 
     return "\n".join(lines), date_slug
 
