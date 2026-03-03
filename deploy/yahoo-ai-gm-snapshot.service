@@ -1,0 +1,13 @@
+[Unit]
+Description=Yahoo AI GM Snapshot Refresh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/yahoo-ai-gm
+EnvironmentFile=/etc/yahoo-ai-gm/env
+ExecStart=/root/yahoo-ai-gm/scripts/refresh_snapshot.sh
+StandardOutput=journal
+StandardError=journal
