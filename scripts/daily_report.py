@@ -294,17 +294,31 @@ def _fmt_multi_trades(trade_sizes: dict) -> str:
             out.append('')
     return '\n'.join(out)
 
-def _fmt_trades(suggestions: list) -> str:
+def _fmt_trades(suggestions: list, acceptance_map: dict = None) -> str:
     out = []
     out.append('## Trade Suggestions\n')
     if not suggestions:
         out.append('_No trade suggestions generated._\n')
         return '\n'.join(out)
+    acceptance_map = acceptance_map or {}
+    verdict_icon = {'LIKELY': '[LIKELY]', 'POSSIBLE': '[POSSIBLE]',
+                    'UNLIKELY': '[UNLIKELY]', 'VERY_UNLIKELY': '[LOW]', 'UNKNOWN': ''}
     for i, s in enumerate(suggestions, 1):
         give = s.get('give', {})
         receive = s.get('receive', {})
-        out.append(f"### {i}. Give {give.get('name','?')} / Receive {receive.get('name','?')}")
+        give_name = give.get('name','?')
+        recv_name = receive.get('name','?')
+        out.append(f"### {i}. Give {give_name} / Receive {recv_name}")
         out.append(f"- **Score:** {s.get('trade_score', 0):.3f}")
+        # Acceptance probability
+        acc_key = f"{give_name}|{recv_name}"
+        acc = acceptance_map.get(acc_key, s.get('acceptance', {}))
+        if acc and acc.get('acceptance_probability') is not None:
+            prob = acc['acceptance_probability']
+            verdict = verdict_icon.get(acc.get('verdict',''), '')
+            out.append(f"- **Acceptance:** {prob:.0%} {verdict}")
+            for reason in acc.get('reasoning', [])[:2]:
+                out.append(f"  - {reason}")
         out.append(f"- **Improves:** {', '.join(s.get('cats_improved', []))}")
         if s.get('cats_hurt'):
             out.append(f"- **Costs:** {', '.join(s.get('cats_hurt', []))}")
@@ -382,6 +396,16 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Trade value tracker failed: {e}')
         trade_value_players = []
+    from yahoo_ai_gm.use_cases.get_trade_acceptance import get_trade_acceptance_report
+    try:
+        acc_report = get_trade_acceptance_report(data_dir=Path('data'))
+        acceptance_map = {
+            f"{s.get('give',{}).get('name','')}|{s.get('receive',{}).get('name','')}": s.get('acceptance',{})
+            for s in acc_report.suggestions
+        }
+    except Exception as e:
+        print(f'[daily_report] Trade acceptance failed: {e}')
+        acceptance_map = {}
     from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
     try:
         import signal
@@ -409,7 +433,7 @@ def generate_report(week: int) -> str:
     lines.append("")
     lines.append(_fmt_waivers(waivers))
     lines.append('')
-    lines.append(_fmt_trades(trades_suggestions))
+    lines.append(_fmt_trades(trades_suggestions, acceptance_map))
     lines.append('')
     lines.append(_fmt_matchup(matchup_data))
     lines.append('')
