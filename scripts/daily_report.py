@@ -90,6 +90,25 @@ def _fmt_waivers(report) -> str:
     return "\n".join(lines)
 
 
+
+def _fmt_trades(suggestions: list) -> str:
+    out = []
+    out.append('## Trade Suggestions\n')
+    if not suggestions:
+        out.append('_No trade suggestions generated._\n')
+        return '\n'.join(out)
+    for i, s in enumerate(suggestions, 1):
+        give = s.get('give', {})
+        receive = s.get('receive', {})
+        out.append(f"### {i}. Give {give.get('name','?')} / Receive {receive.get('name','?')}")
+        out.append(f"- **Score:** {s.get('trade_score', 0):.3f}")
+        out.append(f"- **Improves:** {', '.join(s.get('cats_improved', []))}")
+        if s.get('cats_hurt'):
+            out.append(f"- **Costs:** {', '.join(s.get('cats_hurt', []))}")
+        out.append(f"- **Rationale:** {s.get('rationale', '')}")
+        out.append('')
+    return '\n'.join(out)
+
 def generate_report(week: int) -> str:
     snapshot = load_snapshot(week)
 
@@ -111,6 +130,13 @@ def generate_report(week: int) -> str:
         sv_pool_list = raw if isinstance(raw, list) else raw.get("players") or raw.get("pool") or []
 
     waivers = waiver_recommendations(snapshot, pool=pool_list, sv_pool=sv_pool_list)
+    from yahoo_ai_gm.use_cases.get_trades import get_trade_report
+    try:
+        trade_report = get_trade_report(data_dir=Path('data'), n_suggestions=5)
+        trades_suggestions = trade_report.suggestions
+    except Exception as e:
+        print(f'[daily_report] Trade suggestions failed: {e}')
+        trades_suggestions = []
 
     now = datetime.now(timezone.utc).astimezone()
     ts = now.strftime("%Y-%m-%d %H:%M:%S %Z")
@@ -125,6 +151,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_inefficiency(inefficiency))
     lines.append("")
     lines.append(_fmt_waivers(waivers))
+    lines.append('')
+    lines.append(_fmt_trades(trades_suggestions))
 
     return "\n".join(lines), date_slug
 
