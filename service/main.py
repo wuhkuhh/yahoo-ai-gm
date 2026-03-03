@@ -340,3 +340,31 @@ def get_opponent_profiles(week: int = Query(None), n_teams: int = Query(default=
         "opponents": report.opponent_profiles,
     }
 
+
+@app.get("/streaming-sp")
+def get_streaming_sp(
+    week: int = Query(None),
+    max_owned: float = Query(default=60.0, ge=0.0, le=100.0),
+    top_n: int = Query(default=10, ge=1, le=20),
+):
+    from yahoo_ai_gm.use_cases.get_streaming_sp import get_streaming_sp_report
+    data_dir = Path("data")
+    try:
+        report = get_streaming_sp_report(
+            data_dir=data_dir,
+            week=week,
+            max_owned_pct=max_owned,
+            top_n=top_n,
+        )
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "week_start": report.week_start,
+        "week_end": report.week_end,
+        "data_source": report.data_source,
+        "opponent_weaknesses": report.opp_weaknesses,
+        "candidates": report.candidates,
+    }
+

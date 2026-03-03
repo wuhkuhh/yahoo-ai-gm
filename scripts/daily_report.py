@@ -140,6 +140,28 @@ def _fmt_matchup(matchup: dict) -> str:
 
 
 
+
+def _fmt_streaming_sp(candidates: list, opp_weaknesses: list, source: str) -> str:
+    out = []
+    out.append('## Streaming SP Optimizer\n')
+    if not candidates:
+        out.append('_No streaming SP candidates found._\n')
+        return '\n'.join(out)
+    src_label = 'Live probable starters' if source == 'mlb_api' else 'FG projected quality'
+    out.append(f'_Source: {src_label} | Targeting opponent weaknesses: {", ".join(opp_weaknesses) or "none"}_\n')
+    out.append('| # | Pitcher | ERA | WHIP | K/9 | Starts | Owned | Score | Addresses |')
+    out.append('|---|---------|-----|------|-----|--------|-------|-------|-----------|')
+    for i, c in enumerate(candidates[:8], 1):
+        proj = c.get('projections', {})
+        cats = ', '.join(c.get('cats_addressed', [])) or '-'
+        out.append(
+            f'| {i} | {c["name"]} | {proj.get("ERA",0):.2f} | {proj.get("WHIP",0):.3f} |'
+            f' {proj.get("K/9",0):.1f} | {c["projected_starts"]} | {c["percent_owned"]:.0f}% |'
+            f' {c["streaming_score"]:.2f} | {cats} |'
+        )
+    out.append('')
+    return '\n'.join(out)
+
 def _fmt_league_intel(construction: dict, opponents: list) -> str:
     out = []
     out.append('## League Intelligence\n')
@@ -446,6 +468,17 @@ def generate_report(week: int) -> str:
         print(f'[daily_report] League intelligence failed: {e}')
         league_construction = {}
         league_opponents = []
+    from yahoo_ai_gm.use_cases.get_streaming_sp import get_streaming_sp_report
+    try:
+        streaming_report = get_streaming_sp_report(data_dir=Path('data'))
+        streaming_candidates = streaming_report.candidates
+        streaming_source = streaming_report.data_source
+        streaming_opp_weaknesses = streaming_report.opp_weaknesses
+    except Exception as e:
+        print(f'[daily_report] Streaming SP failed: {e}')
+        streaming_candidates = []
+        streaming_source = 'fg_projection'
+        streaming_opp_weaknesses = []
     from yahoo_ai_gm.use_cases.get_trade_acceptance import get_trade_acceptance_report
     try:
         acc_report = get_trade_acceptance_report(data_dir=Path('data'))
@@ -500,6 +533,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_trade_value(trade_value_players))
     lines.append('')
     lines.append(_fmt_league_intel(league_construction, league_opponents))
+    lines.append('')
+    lines.append(_fmt_streaming_sp(streaming_candidates, streaming_opp_weaknesses, streaming_source))
 
     return "\n".join(lines), date_slug
 
