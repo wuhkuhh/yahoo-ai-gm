@@ -309,3 +309,34 @@ def get_trade_acceptance(
         "suggestions": report.suggestions,
     }
 
+
+@app.get("/league/construction")
+def get_roster_construction(week: int = Query(None), n_teams: int = Query(default=10)):
+    from yahoo_ai_gm.use_cases.get_league_intelligence import get_league_intelligence_report
+    data_dir = Path("data")
+    try:
+        report = get_league_intelligence_report(data_dir=data_dir, week=week, n_teams=n_teams)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "my_construction": report.my_construction,
+        "all_teams": report.construction_scores,
+    }
+
+
+@app.get("/league/opponents")
+def get_opponent_profiles(week: int = Query(None), n_teams: int = Query(default=10)):
+    from yahoo_ai_gm.use_cases.get_league_intelligence import get_league_intelligence_report
+    data_dir = Path("data")
+    try:
+        report = get_league_intelligence_report(data_dir=data_dir, week=week, n_teams=n_teams)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "opponents": report.opponent_profiles,
+    }
+

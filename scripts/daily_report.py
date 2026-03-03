@@ -139,6 +139,47 @@ def _fmt_matchup(matchup: dict) -> str:
 
 
 
+
+def _fmt_league_intel(construction: dict, opponents: list) -> str:
+    out = []
+    out.append('## League Intelligence\n')
+    if not construction and not opponents:
+        out.append('_No league intelligence data available._\n')
+        return '\n'.join(out)
+    # My construction score
+    if construction:
+        out.append(f'**My Roster Construction:** {construction.get("score",0):.1f}/100 (Grade: {construction.get("grade","?")})')
+        if construction.get('black_holes'):
+            out.append(f'- Black holes (punt): {", ".join(construction["black_holes"])}')
+        if construction.get('strengths'):
+            out.append(f'- Strengths: {", ".join(construction["strengths"])}')
+        out.append('')
+    # Best trade targets
+    if opponents:
+        bubble = [o for o in opponents if 5 <= o.get('rank',10) <= 7]
+        out.append('**Best Trade Partners (bubble teams):**')
+        if bubble:
+            for o in bubble:
+                needs = o.get('trade_motivations', [])
+                strengths = o.get('consistent_strengths', [])
+                out.append(f'- **{o["team"]}** (Rank {o["rank"]}, Grade {o["construction_grade"]})')
+                if needs:
+                    out.append(f'  - They need: {", ".join(needs)}')
+                if strengths:
+                    out.append(f'  - They have: {", ".join(strengths[:4])}')
+        else:
+            out.append('_No bubble teams identified._')
+        out.append('')
+        # Full opponent table
+        out.append('| Rank | Team | Grade | Strengths | Trade Needs |')
+        out.append('|------|------|-------|-----------|-------------|')
+        for o in opponents:
+            strengths = ', '.join(o.get('consistent_strengths', [])[:3]) or '-'
+            needs = ', '.join(o.get('trade_motivations', [])) or '-'
+            out.append(f'| {o["rank"]} | {o["team"]} | {o["construction_grade"]} | {strengths} | {needs} |')
+    out.append('')
+    return '\n'.join(out)
+
 def _fmt_trade_value(players: list) -> str:
     out = []
     out.append('## Trade Value Tracker\n')
@@ -396,6 +437,15 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Trade value tracker failed: {e}')
         trade_value_players = []
+    from yahoo_ai_gm.use_cases.get_league_intelligence import get_league_intelligence_report
+    try:
+        li_report = get_league_intelligence_report(data_dir=Path('data'))
+        league_construction = li_report.my_construction
+        league_opponents = li_report.opponent_profiles
+    except Exception as e:
+        print(f'[daily_report] League intelligence failed: {e}')
+        league_construction = {}
+        league_opponents = []
     from yahoo_ai_gm.use_cases.get_trade_acceptance import get_trade_acceptance_report
     try:
         acc_report = get_trade_acceptance_report(data_dir=Path('data'))
@@ -448,6 +498,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_il(_il_status, _il_alerts))
     lines.append('')
     lines.append(_fmt_trade_value(trade_value_players))
+    lines.append('')
+    lines.append(_fmt_league_intel(league_construction, league_opponents))
 
     return "\n".join(lines), date_slug
 
