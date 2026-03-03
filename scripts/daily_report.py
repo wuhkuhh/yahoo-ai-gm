@@ -136,6 +136,33 @@ def _fmt_matchup(matchup: dict) -> str:
 
 
 
+
+def _fmt_standings(trajectory: dict) -> str:
+    out = []
+    out.append('## Standings Trajectory\n')
+    if not trajectory:
+        out.append('_No standings data available._\n')
+        return '\n'.join(out)
+    rec = trajectory.get('my_projected_record', {})
+    rank = trajectory.get('my_projected_rank', '?')
+    prob = trajectory.get('playoff_probability', 0)
+    sos  = trajectory.get('strength_of_schedule', 0)
+    out.append(f'_Projected: {rec.get("wins",0)}W-{rec.get("losses",0)}L-{rec.get("tossups",0)}T | Rank: {rank}/10 | Playoff prob: {prob*100:.0f}% | SOS: {sos:.1f}_\n')
+    hard = trajectory.get('hardest_weeks', [])
+    easy = trajectory.get('easiest_weeks', [])
+    if hard:
+        out.append(f'**Hardest weeks:** {", ".join(str(w) for w in hard)}')
+    if easy:
+        out.append(f'**Easiest weeks:** {", ".join(str(w) for w in easy)}\n')
+    out.append('| Rank | Team | W | L | Playoff% |')
+    out.append('|------|------|---|---|----------|')
+    for t in trajectory.get('all_standings', []):
+        flag = '🏆 ' if t['rank'] <= 6 else ''
+        prob_str = f'{t["playoff_probability"]*100:.0f}%'
+        out.append(f'| {t["rank"]} | {flag}{t["team"]} | {t["wins"]} | {t["losses"]} | {prob_str} |')
+    out.append('')
+    return '\n'.join(out)
+
 def _fmt_ratio_risk(profiles: list) -> str:
     out = []
     out.append('## Pitcher Ratio Risk\n')
@@ -279,6 +306,13 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Ratio risk failed: {e}')
         ratio_profiles = []
+    from yahoo_ai_gm.use_cases.get_standings import get_standings_report
+    try:
+        standings_report = get_standings_report(data_dir=Path('data'), current_week=week)
+        standings_data = standings_report.trajectory
+    except Exception as e:
+        print(f'[daily_report] Standings trajectory failed: {e}')
+        standings_data = {}
     from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
     try:
         import signal
@@ -315,6 +349,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_adddrop(adddrop_plan))
     lines.append('')
     lines.append(_fmt_ratio_risk(ratio_profiles))
+    lines.append('')
+    lines.append(_fmt_standings(standings_data))
 
     return "\n".join(lines), date_slug
 
