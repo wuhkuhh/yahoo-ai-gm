@@ -394,7 +394,7 @@ async function loadMultiTrades(){
   try{
     const d=await get('/trades/multi');const sizes=d.trade_sizes||{};let html='';
     for(const[size,trades]of Object.entries(sizes)){
-      const rows=(trades||[]).slice(0,4).map(t=>`<div style="padding:12px 0;border-bottom:1px solid var(--border)"><div style="font-weight:600;margin-bottom:5px">Give: ${(t.give||[]).join(', ')} → Receive: ${(t.receive||[]).join(', ')}</div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:5px">score: ${(t.score||0).toFixed(3)}</div><div style="display:flex;gap:5px;flex-wrap:wrap">${(t.cats_improved||[]).map(c=>badge('+'+c,'win')).join('')}${(t.cats_hurt||[]).map(c=>badge('-'+c,'loss')).join('')}</div></div>`).join('');
+      const rows=(trades||[]).slice(0,4).map(t=>`<div style="padding:12px 0;border-bottom:1px solid var(--border)"><div style="font-weight:600;margin-bottom:5px">Give: ${(t.give_players||[]).map(p=>p.name).join(", ")} → Receive: ${(t.receive_players||[]).map(p=>p.name).join(", ")}</div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:5px">score: ${(t.trade_score||0).toFixed(3)}</div><div style="display:flex;gap:5px;flex-wrap:wrap">${(t.cats_improved||[]).map(c=>badge('+'+c,'win')).join('')}${(t.cats_hurt||[]).map(c=>badge('-'+c,'loss')).join('')}</div></div>`).join('');
       html+=`<div class="card"><div class="card-label">${size}</div>${rows}</div>`;
     }
     el('trade-multi').innerHTML=html||'<div class="empty">No multi-player trades.</div>';
