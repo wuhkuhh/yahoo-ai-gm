@@ -1,0 +1,13 @@
+[Unit]
+Description=Yahoo AI GM League Roster Refresh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/yahoo-ai-gm
+EnvironmentFile=/etc/yahoo-ai-gm/env
+ExecStart=/root/yahoo-ai-gm/.venv/bin/python3 scripts/pull_league_rosters.py
+StandardOutput=journal
+StandardError=journal
