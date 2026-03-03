@@ -534,12 +534,17 @@ def trade_suggestions(
                 need_weight = max(0.0, -cs.z_score)   # higher = we need it more
                 surplus_weight = max(0.0, cs.z_score)  # higher = we have surplus
 
-                if net > 0.01:
+                # Normalize net delta by league stdev so AVG (.001) and R (10)
+                # are on comparable scales before applying threshold
+                league_stdev = cs.league_stdev if cs.league_stdev > 0 else 1.0
+                net_normalized = net / league_stdev
+
+                if net_normalized > 0.02:
                     cats_improved.append(cat)
-                    score += net * (1.0 + need_weight)
-                elif net < -0.01:
+                    score += net_normalized * (1.0 + need_weight)
+                elif net_normalized < -0.02:
                     cats_hurt.append(cat)
-                    score -= abs(net) * (1.0 + surplus_weight)
+                    score -= abs(net_normalized) * (1.0 + surplus_weight)
 
             if score <= 0:
                 continue
@@ -604,7 +609,8 @@ def suggestion_to_dict(s: TradeSuggestion) -> dict:
         "cats_hurt": s.cats_hurt,
         "rationale": s.rationale,
         "cat_impacts": {
-            cat: round(s.give_impact.get(cat, 0) + s.receive_impact.get(cat, 0), 3)
+            cat: round(s.give_impact.get(cat, 0) + s.receive_impact.get(cat, 0),
+                      5 if cat in ("AVG", "ERA", "WHIP") else 3)
             for cat in SCORING_CATS["batting"] + SCORING_CATS["pitching"]
         },
     }
