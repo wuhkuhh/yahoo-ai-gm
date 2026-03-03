@@ -6,6 +6,7 @@ from yahoo_ai_gm.snapshot.store import load_snapshot
 from yahoo_ai_gm.analysis.category_pressure import pressure_report
 from yahoo_ai_gm.analysis.roster_inefficiency import roster_inefficiency_report
 from yahoo_ai_gm.analysis.waiver_engine import waiver_recommendations
+from yahoo_ai_gm.use_cases.get_trades import get_trade_report
 
 app = FastAPI(title="Yahoo AI GM Service")
 app.include_router(waivers_router)
@@ -83,9 +84,39 @@ def get_waivers_latest(week: int = Query(None)):
     snap = _get_snapshot_or_404(w)
     return waiver_recommendations(snap).model_dump()
 
+
 @app.get("/report", response_class=PlainTextResponse)
 def get_report():
     p = Path("data/reports/latest.md")
     if not p.exists():
         raise HTTPException(status_code=404, detail="No report generated yet. Run daily_report.py first.")
     return p.read_text(encoding="utf-8")
+
+
+@app.get("/trades")
+def get_trades(
+    n: int = Query(default=10, ge=1, le=50, description="Number of suggestions"),
+    n_teams: int = Query(default=12, ge=2, le=20, description="League size"),
+    max_adp: float = Query(default=300.0, description="Max ADP for receive candidates"),
+):
+    data_dir = Path("data")
+    try:
+        report = get_trade_report(
+            data_dir=data_dir,
+            n_suggestions=n,
+            n_teams=n_teams,
+            min_receive_adp=max_adp,
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "fg_projection_date": report.fg_projection_date,
+        "roster_size": report.roster_size,
+        "unmatched_players": report.unmatched_players,
+        "weak_categories": report.weak_categories,
+        "strong_categories": report.strong_categories,
+        "suggestion_count": len(report.suggestions),
+        "suggestions": report.suggestions,
+    }
