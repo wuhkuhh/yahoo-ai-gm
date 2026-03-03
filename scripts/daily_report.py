@@ -138,6 +138,37 @@ def _fmt_matchup(matchup: dict) -> str:
 
 
 
+
+def _fmt_trade_value(players: list) -> str:
+    out = []
+    out.append('## Trade Value Tracker\n')
+    if not players:
+        out.append('_No trade value data available._\n')
+        return '\n'.join(out)
+    sell_high = [p for p in players if p['signal'] == 'SELL_HIGH']
+    cut_bait  = [p for p in players if p['signal'] == 'CUT_BAIT']
+    watch     = [p for p in players if p['signal'] == 'WATCH']
+    hold      = [p for p in players if p['signal'] == 'HOLD']
+    signal_icon = {'SELL_HIGH': '[SELL]', 'CUT_BAIT': '[CUT]', 'WATCH': '[WATCH]', 'HOLD': '[HOLD]'}
+    if sell_high:
+        out.append('**Sell High:**')
+        for p in sell_high:
+            out.append(f'- {p["name"]} (score={p["value_score"]:+.2f}) — {p["primary_change"]}')
+        out.append('')
+    if cut_bait:
+        out.append('**Cut Bait:**')
+        for p in cut_bait:
+            out.append(f'- {p["name"]} (score={p["value_score"]:+.2f}) — {p["primary_change"]}')
+        out.append('')
+    if watch:
+        out.append('**Watch:**')
+        for p in watch:
+            out.append(f'- {p["name"]} (score={p["value_score"]:+.2f}) — {p["primary_change"]}')
+        out.append('')
+    if not sell_high and not cut_bait and not watch:
+        out.append(f'_All {len(hold)} rostered players holding steady. Signals will appear as projections diverge during the season._\n')
+    return '\n'.join(out)
+
 def _fmt_il(current: dict, alerts: list) -> str:
     out = []
     out.append('## Injury Monitor\n')
@@ -344,6 +375,13 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] IL monitor load failed: {e}')
         _il_status, _il_alerts = {}, []
+    from yahoo_ai_gm.use_cases.get_trade_value import get_trade_value_report
+    try:
+        tv_report = get_trade_value_report(data_dir=Path('data'))
+        trade_value_players = tv_report.players
+    except Exception as e:
+        print(f'[daily_report] Trade value tracker failed: {e}')
+        trade_value_players = []
     from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
     try:
         import signal
@@ -384,6 +422,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_standings(standings_data))
     lines.append('')
     lines.append(_fmt_il(_il_status, _il_alerts))
+    lines.append('')
+    lines.append(_fmt_trade_value(trade_value_players))
 
     return "\n".join(lines), date_slug
 

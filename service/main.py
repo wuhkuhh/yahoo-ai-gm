@@ -249,3 +249,39 @@ def get_standings(
         **report.trajectory,
     }
 
+
+@app.get("/trade-value")
+def get_trade_value(week: int = Query(default=1, ge=1, le=23)):
+    from yahoo_ai_gm.use_cases.get_trade_value import get_trade_value_report
+    data_dir = Path("data")
+    try:
+        report = get_trade_value_report(data_dir=data_dir, week=week)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "sell_high": report.sell_high,
+        "cut_bait": report.cut_bait,
+
+        "players": report.players,
+    }
+
+
+@app.get("/trade-value")
+def get_trade_value(week: int = Query(None)):
+    from yahoo_ai_gm.use_cases.get_trade_value import get_trade_value_report
+    data_dir = Path("data")
+    try:
+        report = get_trade_value_report(data_dir=data_dir, week=week)
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return {
+        "generated_at": report.generated_at.isoformat(),
+        "week": report.week,
+        "sell_high": report.sell_high,
+        "cut_bait": report.cut_bait,
+        "watch": report.watch,
+        "all_players": report.players,
+    }
+
