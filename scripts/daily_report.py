@@ -133,6 +133,30 @@ def _fmt_matchup(matchup: dict) -> str:
     out.append('')
     return '\n'.join(out)
 
+
+def _fmt_multi_trades(trade_sizes: dict) -> str:
+    out = []
+    out.append('## Multi-Player Trade Suggestions\n')
+    if not trade_sizes or not any(trade_sizes.values()):
+        out.append('_No multi-player trade suggestions generated._\n')
+        return '\n'.join(out)
+    labels = {'2for1': '2-for-1 (Give 2, Receive 1)', '1for2': '1-for-2 (Give 1, Receive 2)', '2for2': '2-for-2'}
+    for size, suggs in trade_sizes.items():
+        if not suggs:
+            continue
+        out.append(f'### {labels.get(size, size)}')
+        for i, s in enumerate(suggs, 1):
+            give_str = ' + '.join(p['name'] for p in s.get('give_players', []))
+            recv_str = ' + '.join(p['name'] for p in s.get('receive_players', []))
+            out.append(f'**{i}. Give {give_str} / Receive {recv_str}** (from {s.get("give_team","?")})')
+            out.append(f'- **Score:** {s.get("trade_score",0):.3f} (cat={s.get("cat_score",0):.3f}, pos={s.get("position_multiplier",1):.2f}x)')
+            out.append(f'- **Improves:** {", ".join(s.get("cats_improved", []))}')
+            if s.get('cats_hurt'):
+                out.append(f'- **Costs:** {", ".join(s.get("cats_hurt", []))}')
+            out.append(f'- {s.get("rationale", "")}')
+            out.append('')
+    return '\n'.join(out)
+
 def _fmt_trades(suggestions: list) -> str:
     out = []
     out.append('## Trade Suggestions\n')
@@ -186,6 +210,18 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Matchup projection failed: {e}')
         matchup_data = {}
+    from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
+    try:
+        import signal
+        def _timeout(signum, frame): raise TimeoutError()
+        signal.signal(signal.SIGALRM, _timeout)
+        signal.alarm(30)
+        multi_report = get_multi_trade_report(data_dir=Path('data'), n_suggestions=3)
+        multi_trade_sizes = multi_report.trade_sizes
+        signal.alarm(0)
+    except Exception as e:
+        print(f'[daily_report] Multi-trade suggestions failed: {e}')
+        multi_trade_sizes = {}
 
     now = datetime.now(timezone.utc).astimezone()
     ts = now.strftime("%Y-%m-%d %H:%M:%S %Z")
@@ -204,6 +240,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_trades(trades_suggestions))
     lines.append('')
     lines.append(_fmt_matchup(matchup_data))
+    lines.append('')
+    lines.append(_fmt_multi_trades(multi_trade_sizes))
 
     return "\n".join(lines), date_slug
 
