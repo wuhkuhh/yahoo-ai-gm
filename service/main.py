@@ -1,6 +1,8 @@
 from pathlib import Path
 from fastapi.responses import PlainTextResponse
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from service.routes.waivers import router as waivers_router
 from yahoo_ai_gm.snapshot.store import load_snapshot
 from yahoo_ai_gm.analysis.category_pressure import pressure_report
@@ -9,6 +11,12 @@ from yahoo_ai_gm.analysis.waiver_engine import waiver_recommendations
 from yahoo_ai_gm.use_cases.get_trades import get_trade_report
 
 app = FastAPI(title="Yahoo AI GM Service")
+app.mount("/static", StaticFiles(directory="service/static"), name="static")
+
+@app.get("/ui", include_in_schema=False)
+def serve_ui():
+    from fastapi.responses import FileResponse
+    return FileResponse("service/static/index.html")
 app.include_router(waivers_router)
 
 
