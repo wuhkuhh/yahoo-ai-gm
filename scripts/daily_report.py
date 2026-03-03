@@ -137,6 +137,30 @@ def _fmt_matchup(matchup: dict) -> str:
 
 
 
+
+def _fmt_il(current: dict, alerts: list) -> str:
+    out = []
+    out.append('## Injury Monitor\n')
+    injured = {k: v for k, v in current.items() if v.get('status')}
+    if not injured:
+        out.append('_No current injuries._\n')
+    else:
+        for p in injured.values():
+            sev = '🔴' if p.get('on_il') else '🟡'
+            out.append(f'- {sev} **{p["name"]}**: {p.get("status_full") or p.get("status","?")}  ')
+    if alerts:
+        out.append('\n**Recent changes:**')
+        type_label = {'NEW_IL': '🚨 New IL', 'NEW_DTD': '⚠️ New DTD',
+                      'RETURNED': '✅ Returned', 'UPGRADED': '📈 Upgraded'}
+        for a in alerts[:5]:
+            label = type_label.get(a['type'], a['type'])
+            out.append(f'- {label}: **{a["player_name"]}** ({a["prev_status"] or "OK"} → {a["curr_status"] or "OK"})')
+            if a.get('replacement'):
+                r = a['replacement']
+                out.append(f'  - Suggested add: {r["name"]} ({r["pos"]}, {r["team"]})')
+    out.append('')
+    return '\n'.join(out)
+
 def _fmt_standings(trajectory: dict) -> str:
     out = []
     out.append('## Standings Trajectory\n')
@@ -313,6 +337,13 @@ def generate_report(week: int) -> str:
     except Exception as e:
         print(f'[daily_report] Standings trajectory failed: {e}')
         standings_data = {}
+    import json as _json
+    try:
+        _il_status = _json.loads(Path('data/il_status.json').read_text()) if Path('data/il_status.json').exists() else {}
+        _il_alerts = _json.loads(Path('data/il_alerts.json').read_text()) if Path('data/il_alerts.json').exists() else []
+    except Exception as e:
+        print(f'[daily_report] IL monitor load failed: {e}')
+        _il_status, _il_alerts = {}, []
     from yahoo_ai_gm.use_cases.get_multi_trades import get_multi_trade_report
     try:
         import signal
@@ -351,6 +382,8 @@ def generate_report(week: int) -> str:
     lines.append(_fmt_ratio_risk(ratio_profiles))
     lines.append('')
     lines.append(_fmt_standings(standings_data))
+    lines.append('')
+    lines.append(_fmt_il(_il_status, _il_alerts))
 
     return "\n".join(lines), date_slug
 
