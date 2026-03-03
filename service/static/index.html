@@ -287,7 +287,7 @@ function subTab(event,section,targetId){
   if(target)target.style.display='';
   const lazy={
     'streaming-sp':()=>target.innerHTML.trim()===''&&loadStreamingSP(),
-    'trade-multi':()=>target.innerHTML.includes('Loading')&&loadMultiTrades(),
+    'trade-multi':()=>{},
     'trade-simulator':()=>populateRosterDL(),
     'league-opponents':()=>target.innerHTML.includes('Loading')&&loadOpponents(),
     'roster-ratio':()=>target.innerHTML.trim()===''&&loadRatioRisk(),
@@ -375,6 +375,7 @@ async function loadAddDrop(){
 }
 
 async function loadTrades(){
+  loadMultiTrades();
   ld('trade-suggestions');
   try{
     const d=await get('/trades/acceptance?n=10');const suggs=d.suggestions||[];
