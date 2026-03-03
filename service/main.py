@@ -1,4 +1,5 @@
 from pathlib import Path
+from fastapi.responses import PlainTextResponse
 from fastapi import FastAPI, HTTPException, Query
 from service.routes.waivers import router as waivers_router
 from yahoo_ai_gm.snapshot.store import load_snapshot
@@ -81,3 +82,10 @@ def get_waivers_latest(week: int = Query(None)):
     w = week if week is not None else _latest_week()
     snap = _get_snapshot_or_404(w)
     return waiver_recommendations(snap).model_dump()
+
+@app.get("/report", response_class=PlainTextResponse)
+def get_report():
+    p = Path("data/reports/latest.md")
+    if not p.exists():
+        raise HTTPException(status_code=404, detail="No report generated yet. Run daily_report.py first.")
+    return p.read_text(encoding="utf-8")
