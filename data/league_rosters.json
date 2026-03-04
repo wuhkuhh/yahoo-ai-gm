@@ -1,0 +1,1675 @@
+{
+  "league_key": "469.l.40206",
+  "teams": [
+    {
+      "team_key": "469.l.40206.t.1",
+      "team_name": "MLB 2K26",
+      "players": [
+        {
+          "player_key": "469.p.11531",
+          "full_name": "Cal Raleigh",
+          "mlb_team": "SEA",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.64313",
+          "full_name": "Nick Kurtz",
+          "mlb_team": "ATH",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.64317",
+          "full_name": "JJ Wetherholt",
+          "mlb_team": "STL",
+          "display_position": "2B,3B,SS",
+          "status": "NA"
+        },
+        {
+          "player_key": "469.p.9750",
+          "full_name": "Jorge Polanco",
+          "mlb_team": "NYM",
+          "display_position": "2B,3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.62955",
+          "full_name": "Kevin McGonigle",
+          "mlb_team": "DET",
+          "display_position": "SS",
+          "status": "NA"
+        },
+        {
+          "player_key": "469.p.64318",
+          "full_name": "Konnor Griffin",
+          "mlb_team": "PIT",
+          "display_position": "SS,OF",
+          "status": "NA"
+        },
+        {
+          "player_key": "469.p.10883",
+          "full_name": "Yordan Alvarez",
+          "mlb_team": "HOU",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.62119",
+          "full_name": "Jakob Marsee",
+          "mlb_team": "MIA",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9605",
+          "full_name": "Matt Olson",
+          "mlb_team": "ATL",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12309",
+          "full_name": "Jonathan Aranda",
+          "mlb_team": "TB",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60420",
+          "full_name": "Chandler Simpson",
+          "mlb_team": "TB",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10862",
+          "full_name": "Hunter Greene",
+          "mlb_team": "CIN",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10627",
+          "full_name": "Jesús Luzardo",
+          "mlb_team": "PHI",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11495",
+          "full_name": "Jhoan Duran",
+          "mlb_team": "PHI",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60016",
+          "full_name": "Cade Smith",
+          "mlb_team": "CLE",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.8616",
+          "full_name": "Aroldis Chapman",
+          "mlb_team": "BOS",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11628",
+          "full_name": "Devin Williams",
+          "mlb_team": "NYM",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12345",
+          "full_name": "Kyle Bradish",
+          "mlb_team": "BAL",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9124",
+          "full_name": "Zack Wheeler",
+          "mlb_team": "PHI",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.9007",
+          "full_name": "Nathan Eovaldi",
+          "mlb_team": "TEX",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10909",
+          "full_name": "Trevor Rogers",
+          "mlb_team": "BAL",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.64985",
+          "full_name": "Cam Schlittler",
+          "mlb_team": "NYY",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.64316",
+          "full_name": "Chase Burns",
+          "mlb_team": "CIN",
+          "display_position": "SP,RP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.2",
+      "team_name": "Romper's MOTEL6",
+      "players": [
+        {
+          "player_key": "469.p.12409",
+          "full_name": "Hunter Goodman",
+          "mlb_team": "COL",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10572",
+          "full_name": "Josh Naylor",
+          "mlb_team": "SEA",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10036",
+          "full_name": "Ketel Marte",
+          "mlb_team": "AZ",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60419",
+          "full_name": "Junior Caminero",
+          "mlb_team": "TB",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60108",
+          "full_name": "Roman Anthony",
+          "mlb_team": "BOS",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11733",
+          "full_name": "Kyle Stowers",
+          "mlb_team": "MIA",
+          "display_position": "OF",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.9320",
+          "full_name": "Christian Yelich",
+          "mlb_team": "MIL",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10766",
+          "full_name": "Bo Bichette",
+          "mlb_team": "NYM",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.63023",
+          "full_name": "Luke Keaschall",
+          "mlb_team": "MIN",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.62976",
+          "full_name": "Jacob Wilson",
+          "mlb_team": "ATH",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10166",
+          "full_name": "Willson Contreras",
+          "mlb_team": "BOS",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12550",
+          "full_name": "Alec Burleson",
+          "mlb_team": "STL",
+          "display_position": "1B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12582",
+          "full_name": "Daylen Lile",
+          "mlb_team": "WSH",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11836",
+          "full_name": "Ivan Herrera",
+          "mlb_team": "STL",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9861",
+          "full_name": "Kyle Schwarber",
+          "mlb_team": "PHI",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11847",
+          "full_name": "Joe Ryan",
+          "mlb_team": "MIN",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.62935",
+          "full_name": "Nolan McLean",
+          "mlb_team": "NYM",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11823",
+          "full_name": "Joey Cantillo",
+          "mlb_team": "CLE",
+          "display_position": "SP,RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60238",
+          "full_name": "Emmet Sheehan",
+          "mlb_team": "LAD",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10597",
+          "full_name": "Sandy Alcantara",
+          "mlb_team": "MIA",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60118",
+          "full_name": "Cade Horton",
+          "mlb_team": "CHC",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9823",
+          "full_name": "Carlos Rodón",
+          "mlb_team": "NYY",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.63640",
+          "full_name": "Shota Imanaga",
+          "mlb_team": "CHC",
+          "display_position": "SP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.3",
+      "team_name": "Savannah Bananas",
+      "players": [
+        {
+          "player_key": "469.p.60077",
+          "full_name": "Drake Baldwin",
+          "mlb_team": "ATL",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.8658",
+          "full_name": "Freddie Freeman",
+          "mlb_team": "LAD",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12336",
+          "full_name": "Maikel Garcia",
+          "mlb_team": "KC",
+          "display_position": "2B,3B,SS,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10420",
+          "full_name": "Austin Riley",
+          "mlb_team": "ATL",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10234",
+          "full_name": "Dansby Swanson",
+          "mlb_team": "CHC",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10646",
+          "full_name": "Ronald Acuña Jr.",
+          "mlb_team": "ATL",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12056",
+          "full_name": "Michael Harris II",
+          "mlb_team": "ATL",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10440",
+          "full_name": "Ian Happ",
+          "mlb_team": "CHC",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10237",
+          "full_name": "Ozzie Albies",
+          "mlb_team": "ATL",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9112",
+          "full_name": "Jurickson Profar",
+          "mlb_team": "ATL",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11365",
+          "full_name": "Alec Bohm",
+          "mlb_team": "PHI",
+          "display_position": "1B,3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.63423",
+          "full_name": "Yoshinobu Yamamoto",
+          "mlb_team": "LAD",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.8780",
+          "full_name": "Chris Sale",
+          "mlb_team": "ATL",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9902",
+          "full_name": "Raisel Iglesias",
+          "mlb_team": "ATL",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10274",
+          "full_name": "Carlos Estévez",
+          "mlb_team": "KC",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11138",
+          "full_name": "Framber Valdez",
+          "mlb_team": "DET",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12281",
+          "full_name": "Spencer Strider",
+          "mlb_team": "ATL",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11717",
+          "full_name": "Trevor Megill",
+          "mlb_team": "MIL",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9459",
+          "full_name": "Sonny Gray",
+          "mlb_team": "BOS",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12354",
+          "full_name": "Robert Suarez",
+          "mlb_team": "ATL",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12395",
+          "full_name": "Andrew Abbott",
+          "mlb_team": "CIN",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11251",
+          "full_name": "Merrill Kelly",
+          "mlb_team": "AZ",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.10574",
+          "full_name": "Adrian Morejon",
+          "mlb_team": "SD",
+          "display_position": "RP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.4",
+      "team_name": "V's Heat",
+      "players": [
+        {
+          "player_key": "469.p.11853",
+          "full_name": "Alejandro Kirk",
+          "mlb_team": "TOR",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10621",
+          "full_name": "Vladimir Guerrero Jr.",
+          "mlb_team": "TOR",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10839",
+          "full_name": "Jazz Chisholm Jr.",
+          "mlb_team": "NYY",
+          "display_position": "2B,3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12741",
+          "full_name": "Addison Barger",
+          "mlb_team": "TOR",
+          "display_position": "3B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11822",
+          "full_name": "CJ Abrams",
+          "mlb_team": "WSH",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11760",
+          "full_name": "Riley Greene",
+          "mlb_team": "DET",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12148",
+          "full_name": "Andy Pages",
+          "mlb_team": "LAD",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10496",
+          "full_name": "Taylor Ward",
+          "mlb_team": "BAL",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.1000001",
+          "full_name": "Shohei Ohtani (Batter)",
+          "mlb_team": "LAD",
+          "display_position": "Util",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11914",
+          "full_name": "Spencer Torkelson",
+          "mlb_team": "DET",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9893",
+          "full_name": "Willy Adames",
+          "mlb_team": "SF",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12667",
+          "full_name": "Kerry Carpenter",
+          "mlb_team": "DET",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10522",
+          "full_name": "Trent Grisham",
+          "mlb_team": "NYY",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11014",
+          "full_name": "Freddy Peralta",
+          "mlb_team": "NYM",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10438",
+          "full_name": "Dylan Cease",
+          "mlb_team": "TOR",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10214",
+          "full_name": "Edwin Díaz",
+          "mlb_team": "LAD",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9334",
+          "full_name": "Kevin Gausman",
+          "mlb_team": "TOR",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.64320",
+          "full_name": "Trey Yesavage",
+          "mlb_team": "TOR",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9616",
+          "full_name": "Tyler Glasnow",
+          "mlb_team": "LAD",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10921",
+          "full_name": "David Peterson",
+          "mlb_team": "NYM",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10569",
+          "full_name": "Clay Holmes",
+          "mlb_team": "NYM",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10934",
+          "full_name": "Shane Baz",
+          "mlb_team": "BAL",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10526",
+          "full_name": "Cody Ponce",
+          "mlb_team": "TOR",
+          "display_position": "SP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.5",
+      "team_name": "Mike's Catchers",
+      "players": [
+        {
+          "player_key": "469.p.9015",
+          "full_name": "Salvador Perez",
+          "mlb_team": "KC",
+          "display_position": "C,1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10235",
+          "full_name": "Rafael Devers",
+          "mlb_team": "SF",
+          "display_position": "1B",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.8996",
+          "full_name": "Jose Altuve",
+          "mlb_team": "HOU",
+          "display_position": "2B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9724",
+          "full_name": "Eugenio Suárez",
+          "mlb_team": "CIN",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12393",
+          "full_name": "Elly De La Cruz",
+          "mlb_team": "CIN",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9877",
+          "full_name": "Aaron Judge",
+          "mlb_team": "NYY",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10639",
+          "full_name": "Fernando Tatis Jr.",
+          "mlb_team": "SD",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9339",
+          "full_name": "George Springer",
+          "mlb_team": "TOR",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60214",
+          "full_name": "Zach Neto",
+          "mlb_team": "LAA",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11768",
+          "full_name": "Jeremy Peña",
+          "mlb_team": "HOU",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9584",
+          "full_name": "Corey Seager",
+          "mlb_team": "TEX",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.66369",
+          "full_name": "Munetaka Murakami",
+          "mlb_team": "CWS",
+          "display_position": "1B,3B",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.11529",
+          "full_name": "Noelvi Marte",
+          "mlb_team": "CIN",
+          "display_position": "3B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60090",
+          "full_name": "Jackson Holliday",
+          "mlb_team": "BAL",
+          "display_position": "2B,SS",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.60584",
+          "full_name": "Bryan Woo",
+          "mlb_team": "SEA",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9701",
+          "full_name": "Jacob deGrom",
+          "mlb_team": "TEX",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.8758",
+          "full_name": "Kenley Jansen",
+          "mlb_team": "DET",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10691",
+          "full_name": "Emilio Pagán",
+          "mlb_team": "CIN",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.61627",
+          "full_name": "Ryan Walker",
+          "mlb_team": "SF",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10730",
+          "full_name": "Brandon Woodruff",
+          "mlb_team": "MIL",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.9691",
+          "full_name": "Robbie Ray",
+          "mlb_team": "SF",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10903",
+          "full_name": "Edward Cabrera",
+          "mlb_team": "CHC",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9121",
+          "full_name": "Gerrit Cole",
+          "mlb_team": "NYY",
+          "display_position": "SP",
+          "status": "DTD"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.6",
+      "team_name": "Get a WHIFF of THIS!",
+      "players": [
+        {
+          "player_key": "469.p.61818",
+          "full_name": "Agustín Ramírez",
+          "mlb_team": "MIA",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12449",
+          "full_name": "Vinnie Pasquantino",
+          "mlb_team": "KC",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10236",
+          "full_name": "Gleyber Torres",
+          "mlb_team": "DET",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10916",
+          "full_name": "Royce Lewis",
+          "mlb_team": "MIN",
+          "display_position": "3B",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.11731",
+          "full_name": "Gunnar Henderson",
+          "mlb_team": "BAL",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.62973",
+          "full_name": "Wyatt Langford",
+          "mlb_team": "TEX",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11735",
+          "full_name": "Jarren Duran",
+          "mlb_team": "BOS",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11104",
+          "full_name": "Randy Arozarena",
+          "mlb_team": "SEA",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10056",
+          "full_name": "Trea Turner",
+          "mlb_team": "PHI",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9846",
+          "full_name": "Christian Walker",
+          "mlb_team": "HOU",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11722",
+          "full_name": "Corbin Carroll",
+          "mlb_team": "AZ",
+          "display_position": "OF",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.12005",
+          "full_name": "Tyler Soderstrom",
+          "mlb_team": "ATH",
+          "display_position": "1B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.62971",
+          "full_name": "Dylan Crews",
+          "mlb_team": "WSH",
+          "display_position": "OF",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.9517",
+          "full_name": "Marcus Semien",
+          "mlb_team": "NYM",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.62972",
+          "full_name": "Paul Skenes",
+          "mlb_team": "PIT",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12141",
+          "full_name": "Hunter Brown",
+          "mlb_team": "HOU",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10946",
+          "full_name": "Ryan Helsley",
+          "mlb_team": "BAL",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60121",
+          "full_name": "Daniel Palencia",
+          "mlb_team": "CHC",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12468",
+          "full_name": "Eury Pérez",
+          "mlb_team": "MIA",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11057",
+          "full_name": "Pablo López",
+          "mlb_team": "MIN",
+          "display_position": "SP",
+          "status": "IL60"
+        },
+        {
+          "player_key": "469.p.60137",
+          "full_name": "Tanner Bibee",
+          "mlb_team": "CLE",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12036",
+          "full_name": "Ryan Pepiot",
+          "mlb_team": "TB",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11789",
+          "full_name": "Drew Rasmussen",
+          "mlb_team": "TB",
+          "display_position": "SP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.7",
+      "team_name": "Julio Let The Dawgs Out",
+      "players": [
+        {
+          "player_key": "469.p.62137",
+          "full_name": "Ben Rice",
+          "mlb_team": "NYY",
+          "display_position": "C,1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.8875",
+          "full_name": "Bryce Harper",
+          "mlb_team": "PHI",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12730",
+          "full_name": "Ceddanne Rafaela",
+          "mlb_team": "BOS",
+          "display_position": "2B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10205",
+          "full_name": "Matt Chapman",
+          "mlb_team": "SF",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11417",
+          "full_name": "Geraldo Perdomo",
+          "mlb_team": "AZ",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11384",
+          "full_name": "Julio Rodríguez",
+          "mlb_team": "SEA",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12480",
+          "full_name": "Jackson Chourio",
+          "mlb_team": "MIL",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12521",
+          "full_name": "James Wood",
+          "mlb_team": "WSH",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12522",
+          "full_name": "Jackson Merrill",
+          "mlb_team": "SD",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12719",
+          "full_name": "Lawrence Butler",
+          "mlb_team": "ATH",
+          "display_position": "OF",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.12351",
+          "full_name": "Brendan Donovan",
+          "mlb_team": "SEA",
+          "display_position": "2B,SS,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11732",
+          "full_name": "Adley Rutschman",
+          "mlb_team": "BAL",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.64312",
+          "full_name": "Jac Caglianone",
+          "mlb_team": "KC",
+          "display_position": "1B,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60776",
+          "full_name": "José Caballero",
+          "mlb_team": "NYY",
+          "display_position": "2B,3B,SS,OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11763",
+          "full_name": "Tarik Skubal",
+          "mlb_team": "DET",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11235",
+          "full_name": "Logan Webb",
+          "mlb_team": "SF",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10131",
+          "full_name": "Josh Hader",
+          "mlb_team": "HOU",
+          "display_position": "RP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.11597",
+          "full_name": "Pete Fairbanks",
+          "mlb_team": "MIA",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11826",
+          "full_name": "George Kirby",
+          "mlb_team": "SEA",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60254",
+          "full_name": "Jacob Misiorowski",
+          "mlb_team": "MIL",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11661",
+          "full_name": "Michael King",
+          "mlb_team": "SD",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10940",
+          "full_name": "MacKenzie Gore",
+          "mlb_team": "TEX",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10910",
+          "full_name": "Corbin Burnes",
+          "mlb_team": "AZ",
+          "display_position": "SP",
+          "status": "IL60"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.8",
+      "team_name": "NoRoids",
+      "players": [
+        {
+          "player_key": "469.p.11728",
+          "full_name": "Shea Langeliers",
+          "mlb_team": "ATH",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10465",
+          "full_name": "Yandy Díaz",
+          "mlb_team": "TB",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11284",
+          "full_name": "Nico Hoerner",
+          "mlb_team": "CHC",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9111",
+          "full_name": "Manny Machado",
+          "mlb_team": "SD",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11771",
+          "full_name": "Bobby Witt Jr.",
+          "mlb_team": "KC",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10366",
+          "full_name": "Teoscar Hernández",
+          "mlb_team": "LAD",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11370",
+          "full_name": "Oneil Cruz",
+          "mlb_team": "PIT",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10893",
+          "full_name": "Jo Adell",
+          "mlb_team": "LAA",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11375",
+          "full_name": "Xavier Edwards",
+          "mlb_team": "MIA",
+          "display_position": "2B,SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12413",
+          "full_name": "Colson Montgomery",
+          "mlb_team": "CWS",
+          "display_position": "3B,SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11221",
+          "full_name": "Luis Arraez",
+          "mlb_team": "SF",
+          "display_position": "1B,2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10944",
+          "full_name": "Heliot Ramos",
+          "mlb_team": "SF",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12314",
+          "full_name": "Steven Kwan",
+          "mlb_team": "CLE",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.63494",
+          "full_name": "Jung Hoo Lee",
+          "mlb_team": "SF",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11706",
+          "full_name": "Cristopher Sánchez",
+          "mlb_team": "PHI",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9620",
+          "full_name": "Max Fried",
+          "mlb_team": "NYY",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12505",
+          "full_name": "Mason Miller",
+          "mlb_team": "SD",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11526",
+          "full_name": "Andrés Muñoz",
+          "mlb_team": "SEA",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11645",
+          "full_name": "David Bednar",
+          "mlb_team": "NYY",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10901",
+          "full_name": "Dennis Santana",
+          "mlb_team": "PIT",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12690",
+          "full_name": "Fernando Cruz",
+          "mlb_team": "NYY",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11536",
+          "full_name": "Camilo Doval",
+          "mlb_team": "NYY",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11208",
+          "full_name": "Bryan Abreu",
+          "mlb_team": "HOU",
+          "display_position": "RP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.9",
+      "team_name": "Jacob's Walls",
+      "players": [
+        {
+          "player_key": "469.p.11268",
+          "full_name": "William Contreras",
+          "mlb_team": "MIL",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10918",
+          "full_name": "Pete Alonso",
+          "mlb_team": "BAL",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12122",
+          "full_name": "Jordan Westburg",
+          "mlb_team": "BAL",
+          "display_position": "2B,3B",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.10881",
+          "full_name": "Isaac Paredes",
+          "mlb_team": "HOU",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9116",
+          "full_name": "Francisco Lindor",
+          "mlb_team": "NYM",
+          "display_position": "SS",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.10626",
+          "full_name": "Juan Soto",
+          "mlb_team": "NYM",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10917",
+          "full_name": "Brent Rooker",
+          "mlb_team": "ATH",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9590",
+          "full_name": "Byron Buxton",
+          "mlb_team": "MIN",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11778",
+          "full_name": "Michael Busch",
+          "mlb_team": "CHC",
+          "display_position": "1B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12588",
+          "full_name": "Seiya Suzuki",
+          "mlb_team": "CHC",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9571",
+          "full_name": "Trevor Story",
+          "mlb_team": "BOS",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9876",
+          "full_name": "Brandon Nimmo",
+          "mlb_team": "TEX",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10964",
+          "full_name": "Luis García Jr.",
+          "mlb_team": "WSH",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12046",
+          "full_name": "Garrett Crochet",
+          "mlb_team": "BOS",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11381",
+          "full_name": "Logan Gilbert",
+          "mlb_team": "SEA",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9896",
+          "full_name": "Jeff Hoffman",
+          "mlb_team": "TOR",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12746",
+          "full_name": "Abner Uribe",
+          "mlb_team": "MIL",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10610",
+          "full_name": "Cole Ragans",
+          "mlb_team": "KC",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10683",
+          "full_name": "Nick Pivetta",
+          "mlb_team": "SD",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11750",
+          "full_name": "Nick Lodolo",
+          "mlb_team": "CIN",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12401",
+          "full_name": "Gavin Williams",
+          "mlb_team": "CLE",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11398",
+          "full_name": "Shane McClanahan",
+          "mlb_team": "TB",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10011",
+          "full_name": "Matthew Boyd",
+          "mlb_team": "CHC",
+          "display_position": "SP",
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "team_key": "469.l.40206.t.10",
+      "team_name": "🔥 Tymonsta 🔥",
+      "players": [
+        {
+          "player_key": "469.p.10642",
+          "full_name": "Will Smith",
+          "mlb_team": "LAD",
+          "display_position": "C",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.66491",
+          "full_name": "Kazuma Okamoto",
+          "mlb_team": "TOR",
+          "display_position": "1B,3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11343",
+          "full_name": "Brice Turang",
+          "mlb_team": "MIL",
+          "display_position": "2B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9507",
+          "full_name": "José Ramírez",
+          "mlb_team": "CLE",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.9552",
+          "full_name": "Mookie Betts",
+          "mlb_team": "LAD",
+          "display_position": "SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10480",
+          "full_name": "Kyle Tucker",
+          "mlb_team": "LAD",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12157",
+          "full_name": "Pete Crow-Armstrong",
+          "mlb_team": "CHC",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10504",
+          "full_name": "Cody Bellinger",
+          "mlb_team": "NYY",
+          "display_position": "OF",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.10183",
+          "full_name": "Alex Bregman",
+          "mlb_team": "CHC",
+          "display_position": "3B",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10765",
+          "full_name": "Luis Robert Jr.",
+          "mlb_team": "NYM",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11892",
+          "full_name": "Ernie Clement",
+          "mlb_team": "TOR",
+          "display_position": "1B,2B,3B,SS",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.8861",
+          "full_name": "Mike Trout",
+          "mlb_team": "LAA",
+          "display_position": "OF",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.1000002",
+          "full_name": "Shohei Ohtani (Pitcher)",
+          "mlb_team": "LAD",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10148",
+          "full_name": "Blake Snell",
+          "mlb_team": "LAD",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.11011",
+          "full_name": "Seranthony Domínguez",
+          "mlb_team": "CWS",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12203",
+          "full_name": "Griffin Jax",
+          "mlb_team": "TB",
+          "display_position": "RP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.12363",
+          "full_name": "Spencer Schwellenbach",
+          "mlb_team": "ATL",
+          "display_position": "SP",
+          "status": "IL60"
+        },
+        {
+          "player_key": "469.p.10514",
+          "full_name": "Luis Castillo",
+          "mlb_team": "SEA",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.11117",
+          "full_name": "Ranger Suárez",
+          "mlb_team": "BOS",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.10867",
+          "full_name": "Shane Bieber",
+          "mlb_team": "TOR",
+          "display_position": "SP",
+          "status": "DTD"
+        },
+        {
+          "player_key": "469.p.12516",
+          "full_name": "Bubba Chandler",
+          "mlb_team": "PIT",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.66492",
+          "full_name": "Tatsuya Imai",
+          "mlb_team": "HOU",
+          "display_position": "SP",
+          "status": "OK"
+        },
+        {
+          "player_key": "469.p.60218",
+          "full_name": "Ben Joyce",
+          "mlb_team": "LAA",
+          "display_position": "RP",
+          "status": "DTD"
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+cat > pyproject.toml <<'TOML'
 [project]
 name = "yahoo-ai-gm"
 version = "0.1.0"
@@ -22,3 +23,4 @@ service = [
 
 [tool.ruff]
 line-length = 100
+TOML

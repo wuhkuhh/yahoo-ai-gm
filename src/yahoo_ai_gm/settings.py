@@ -17,24 +17,27 @@ class Settings:
     env_path: Path
 
     league_id: str
-    game_key: str
-    league_key: str
-    team_key: str
+
+    team_id: str
 
     @staticmethod
     def from_local_config() -> "Settings":
-        repo_root = Path(__file__).resolve().parents[2]
-
+        """
+        Loads config/local/.env by default (gitignored).
+        You can override with environment variables.
+        """
+        repo_root = Path(__file__).resolve().parents[2]  # .../src/yahoo_ai_gm -> repo root
         default_env_path = repo_root / "config" / "local" / ".env"
         default_token_path = repo_root / "config" / "local" / "oauth.json"
 
-        # Load default .env if present
+        # Load .env (if present). Environment variables already set will not be overwritten.
         if default_env_path.exists():
             load_dotenv(default_env_path, override=False)
 
         env_path = Path(os.getenv("YAHOO_ENV_PATH", str(default_env_path))).expanduser().resolve()
         token_path = Path(os.getenv("YAHOO_TOKEN_PATH", str(default_token_path))).expanduser().resolve()
 
+        # Load again from YAHOO_ENV_PATH if different
         if env_path.exists():
             load_dotenv(env_path, override=False)
 
@@ -42,27 +45,21 @@ class Settings:
         client_secret = os.getenv("YAHOO_CLIENT_SECRET", "").strip()
         redirect_uri = os.getenv("YAHOO_REDIRECT_URI", "").strip()
 
-        league_id = os.getenv("YAHOO_LEAGUE_ID", "").strip()
-        game_key = os.getenv("YAHOO_GAME_KEY", "").strip()
-        league_key = os.getenv("YAHOO_LEAGUE_KEY", "").strip()
-        team_key = os.getenv("YAHOO_TEAM_KEY", "").strip()
+        league_id = os.getenv("YAHOO_LEAGUE_ID", "40206").strip()
 
-        missing = [
-            k for k, v in {
-                "YAHOO_CLIENT_ID": client_id,
-                "YAHOO_CLIENT_SECRET": client_secret,
-                "YAHOO_REDIRECT_URI": redirect_uri,
-                "YAHOO_LEAGUE_ID": league_id,
-                "YAHOO_GAME_KEY": game_key,
-                "YAHOO_LEAGUE_KEY": league_key,
-                "YAHOO_TEAM_KEY": team_key,
-            }.items()
-            if not v
-        ]
+        team_id = os.getenv("YAHOO_TEAM_ID", "6").strip()
+
+        missing = [k for k, v in {
+            "YAHOO_CLIENT_ID": client_id,
+            "YAHOO_CLIENT_SECRET": client_secret,
+            "YAHOO_REDIRECT_URI": redirect_uri,
+        }.items() if not v]
 
         if missing:
             raise RuntimeError(
-                "Missing required settings: " + ", ".join(missing)
+                "Missing required settings: "
+                + ", ".join(missing)
+                + ". Check config/local/.env (gitignored)."
             )
 
         return Settings(
@@ -72,7 +69,14 @@ class Settings:
             token_path=token_path,
             env_path=env_path,
             league_id=league_id,
-            game_key=game_key,
-            league_key=league_key,
-            team_key=team_key,
+            team_id=team_id,
         )
+
+    @property
+    def league_key(self) -> str:
+        # Yahoo MLB game key is typically 469
+        return f"469.l.{self.league_id}"
+
+    @property
+    def team_key(self) -> str:
+        return f"{self.league_key}.t.{self.team_id}"

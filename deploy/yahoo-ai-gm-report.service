@@ -1,0 +1,12 @@
+[Unit]
+Description=Yahoo AI GM Daily Report Generation
+After=yahoo-ai-gm-snapshot.service
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/yahoo-ai-gm
+EnvironmentFile=/etc/yahoo-ai-gm/env
+ExecStart=/root/yahoo-ai-gm/.venv/bin/python3 scripts/daily_report.py
+StandardOutput=journal
+StandardError=journal

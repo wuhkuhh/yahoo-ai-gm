@@ -1,0 +1,18 @@
+[Unit]
+Description=Yahoo AI GM Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/yahoo-ai-gm
+EnvironmentFile=/etc/yahoo-ai-gm/env
+ExecStart=/root/yahoo-ai-gm/.venv/bin/uvicorn service.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

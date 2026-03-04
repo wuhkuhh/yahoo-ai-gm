@@ -1,0 +1,184 @@
+{
+  "league_key": "469.l.40206",
+  "position": "RP",
+  "start": 0,
+  "count": 200,
+  "returned": 25,
+  "players": [
+    {
+      "player_key": "469.p.8287",
+      "name": "David Robertson",
+      "team": "PHI",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.8622",
+      "name": "Craig Kimbrel",
+      "team": "NYM",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.8871",
+      "name": "Shelby Miller",
+      "team": "CHC",
+      "pos": "RP",
+      "status": "DTD"
+    },
+    {
+      "player_key": "469.p.9057",
+      "name": "Liam Hendriks",
+      "team": "MIN",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9068",
+      "name": "Drew Pomeranz",
+      "team": "LAA",
+      "pos": "SP,RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9135",
+      "name": "Erasmo Ramírez",
+      "team": "MIN",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9262",
+      "name": "Brooks Raley",
+      "team": "NYM",
+      "pos": "RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9272",
+      "name": "Justin Wilson",
+      "team": "BOS",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9321",
+      "name": "Taijuan Walker",
+      "team": "PHI",
+      "pos": "SP,RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9350",
+      "name": "T.J. McFarland",
+      "team": "ATH",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9358",
+      "name": "Ryan Pressly",
+      "team": "CHC",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9388",
+      "name": "Ryan Brasier",
+      "team": "TEX",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9402",
+      "name": "Caleb Thielbar",
+      "team": "CHC",
+      "pos": "RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9455",
+      "name": "Luis García",
+      "team": "NYM",
+      "pos": "RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9544",
+      "name": "Lucas Sims",
+      "team": "CWS",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9547",
+      "name": "Hunter Harvey",
+      "team": "CHC",
+      "pos": "RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9559",
+      "name": "Pierce Johnson",
+      "team": "CIN",
+      "pos": "RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9563",
+      "name": "Robert Stephenson",
+      "team": "LAA",
+      "pos": "RP",
+      "status": "DTD"
+    },
+    {
+      "player_key": "469.p.9567",
+      "name": "Jon Gray",
+      "team": "TEX",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9582",
+      "name": "Sean Manaea",
+      "team": "NYM",
+      "pos": "SP,RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9598",
+      "name": "Rafael Montero",
+      "team": "NYY",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9599",
+      "name": "Steven Matz",
+      "team": "TB",
+      "pos": "RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9632",
+      "name": "Luke Jackson",
+      "team": "SEA",
+      "pos": "RP",
+      "status": "NA"
+    },
+    {
+      "player_key": "469.p.9651",
+      "name": "Nick Martinez",
+      "team": "TB",
+      "pos": "SP,RP",
+      "status": null
+    },
+    {
+      "player_key": "469.p.9653",
+      "name": "Tommy Kahnle",
+      "team": "DET",
+      "pos": "RP",
+      "status": "NA"
+    }
+  ]
+}

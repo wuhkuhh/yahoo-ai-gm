@@ -22,6 +22,7 @@ class OAuthTokens:
 
     @staticmethod
     def from_json(d: Dict[str, Any]) -> "OAuthTokens":
+        # Yahoo token response fields: access_token, refresh_token, expires_in, token_type
         return OAuthTokens(
             access_token=d["access_token"],
             refresh_token=d["refresh_token"],
@@ -70,6 +71,7 @@ def save_tokens(token_path: Path, tokens: OAuthTokens) -> None:
     try:
         token_path.chmod(0o600)
     except PermissionError:
+        # Not fatal on some environments, but we try.
         pass
 
 
@@ -111,6 +113,7 @@ def get_valid_access_token(
         refresh_token=tokens.refresh_token,
     )
 
+    # Yahoo refresh response includes a new access_token and expires_in; refresh_token usually remains valid.
     new_tokens = OAuthTokens(
         access_token=payload["access_token"],
         refresh_token=payload.get("refresh_token", tokens.refresh_token),

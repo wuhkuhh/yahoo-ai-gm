@@ -1,6 +1,11 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+build/
+dist/
 .venv/
 
 # Secrets / tokens
@@ -8,11 +13,56 @@ __pycache__/
 oauth.json
 *.token.json
 last_code.txt
+config/local/oauth.json
+config/local/.env
 
 # Local outputs
-data/
 logs/
 
 # OS/editor
 .DS_Store
 .vscode/
+
+# build artifacts
+*.egg-info/
+
+# --- local server / homelab junk (do not commit) ---
+.env
+*.tar.gz
+archives/
+yahoo-oauth-callback/
+.cloudflared/
+.ssh/
+.cache/
+.bash_history
+.bashrc
+.profile
+.gitconfig
+.lesshst
+.install-*.log
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# --- generated runtime data (keep baseline pools, ignore snapshots/reports) ---
+data/snapshots/
+data/reports/
+data/scoreboard_week_*.json
+data/roster_snapshot.*
+data/sv_market_week_*.json
+data/ranked_*.json
+data/waiver_pool_start_*.json
+data/waiver_pool_limit_*.json
+data/waiver_pool_enriched_*.json
+
+# backup files
+*.bak
+*.bak_*
+*.bak.*

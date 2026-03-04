@@ -1,0 +1,1205 @@
+{
+  "league_key": "469.l.40206",
+  "weeks": 26,
+  "schedule": {
+    "1": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "2": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      }
+    ],
+    "3": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "4": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      }
+    ],
+    "5": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "6": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      }
+    ],
+    "7": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "8": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "9": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      }
+    ],
+    "10": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "11": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      }
+    ],
+    "12": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "13": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      }
+    ],
+    "14": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "15": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      }
+    ],
+    "16": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "17": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "18": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      }
+    ],
+    "19": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "20": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        }
+      }
+    ],
+    "21": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "22": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        }
+      }
+    ],
+    "23": [
+      {
+        "team_a": {
+          "key": "469.l.40206.t.1",
+          "name": "MLB 2K26"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.6",
+          "name": "Get a WHIFF of THIS!"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.2",
+          "name": "Romper's MOTEL6"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.5",
+          "name": "Mike's Catchers"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.3",
+          "name": "Savannah Bananas"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.4",
+          "name": "V's Heat"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.7",
+          "name": "Julio Let The Dawgs Out"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.9",
+          "name": "Jacob's Walls"
+        }
+      },
+      {
+        "team_a": {
+          "key": "469.l.40206.t.8",
+          "name": "NoRoids"
+        },
+        "team_b": {
+          "key": "469.l.40206.t.10",
+          "name": "\ud83d\udd25 Tymonsta \ud83d\udd25"
+        }
+      }
+    ],
+    "24": [],
+    "25": [],
+    "26": []
+  }
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=Yahoo AI GM League Roster Refresh Timer
+Requires=yahoo-ai-gm-league-rosters.service
+
+[Timer]
+OnCalendar=Mon *-*-* 07:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

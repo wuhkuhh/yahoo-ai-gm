@@ -1,0 +1,13 @@
+[Unit]
+Description=Yahoo AI GM FanGraphs Projection Refresh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/yahoo-ai-gm
+EnvironmentFile=/etc/yahoo-ai-gm/env
+ExecStart=/root/yahoo-ai-gm/.venv/bin/python3 scripts/pull_fg_projections.py
+StandardOutput=journal
+StandardError=journal

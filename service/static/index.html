@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahoo AI GM</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080b12; --surface:#0e1420; --surface2:#141b2d; --surface3:#1a2235;
+  --border:#1e2a40; --border2:#263347;
+  --accent:#00e5ff; --accent-dim:rgba(0,229,255,0.12);
+  --gold:#f59e0b; --green:#10b981; --green-dim:rgba(16,185,129,0.12);
+  --red:#ef4444; --red-dim:rgba(239,68,68,0.12); --orange:#f97316;
+  --muted:#4a5568; --muted2:#6b7280; --text:#e2e8f0; --text2:#94a3b8;
+  --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
+  --glow:0 0 20px rgba(0,229,255,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);pointer-events:none;z-index:9999}
+.shell{display:grid;grid-template-columns:220px 1fr;grid-template-rows:52px 1fr;min-height:100vh}
+header{grid-column:1/-1;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:200}
+.logo{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent);letter-spacing:1px;display:flex;align-items:center;gap:10px}
+.logo-diamond{width:24px;height:24px;background:var(--accent);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);flex-shrink:0;animation:pulse-d 3s ease-in-out infinite}
+@keyframes pulse-d{0%,100%{opacity:1}50%{opacity:0.5}}
+.header-right{display:flex;align-items:center;gap:16px}
+.health-ind{display:flex;align-items:center;gap:7px;font-size:11px;font-family:var(--mono);color:var(--text2)}
+.health-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s ease-in-out infinite}
+.health-dot.dead{background:var(--red);box-shadow:0 0 6px var(--red);animation:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.week-badge{font-family:var(--mono);font-size:11px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(0,229,255,0.2);padding:3px 10px;border-radius:3px}
+aside{background:var(--surface);border-right:1px solid var(--border);padding:16px 0;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto}
+.nav-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;padding:10px 18px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);border-left:2px solid transparent;transition:all 0.15s;user-select:none}
+.nav-item:hover{color:var(--text);background:var(--surface2)}
+.nav-item.active{color:var(--accent);background:var(--accent-dim);border-left-color:var(--accent)}
+.nav-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+main{padding:24px;overflow-y:auto;height:calc(100vh - 52px)}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+.page-title{font-size:22px;font-weight:700;letter-spacing:-0.3px}
+.page-sub{font-size:13px;color:var(--text2);margin-top:3px;font-family:var(--mono)}
+.refresh-btn{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:var(--mono);transition:all 0.15s;flex-shrink:0}
+.refresh-btn:hover{color:var(--accent);border-color:var(--accent)}
+.tab-page{display:none;animation:fadeIn 0.2s ease}
+.tab-page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sub-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.sub-tab{font-size:12px;font-family:var(--mono);background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:6px 14px;border-radius:4px;cursor:pointer;transition:all 0.15s}
+.sub-tab:hover{color:var(--text)}
+.sub-tab.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px}
+.card.accent-border{border-color:rgba(0,229,255,0.3)}
+.card-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--muted2);text-transform:uppercase;margin-bottom:12px;font-family:var(--mono)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.g4,.g3,.g2{grid-template-columns:1fr}aside{display:none}.shell{grid-template-columns:1fr}}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;color:var(--muted2);font-weight:600;font-family:var(--mono);border-bottom:1px solid var(--border2);font-size:10px;text-transform:uppercase;letter-spacing:0.8px;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+tr.me td{background:rgba(0,229,255,0.04)!important}
+tr.me td:first-child{border-left:2px solid var(--accent)}
+.badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:0.5px;font-family:var(--mono);white-space:nowrap}
+.b-win{background:var(--green-dim);color:var(--green);border:1px solid rgba(16,185,129,0.25)}
+.b-loss{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.25)}
+.b-toss{background:rgba(245,158,11,0.1);color:var(--gold);border:1px solid rgba(245,158,11,0.25)}
+.b-info{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(0,229,255,0.2)}
+.b-warn{background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.25)}
+.b-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
+.b-likely{background:var(--green-dim);color:var(--green);border:1px solid rgba(16,185,129,0.25)}
+.b-possible{background:rgba(245,158,11,0.1);color:var(--gold);border:1px solid rgba(245,158,11,0.25)}
+.b-unlikely{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.25)}
+.prog{height:5px;background:var(--border2);border-radius:3px;overflow:hidden;margin-top:8px}
+.prog-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.pf-green{background:var(--green)}.pf-gold{background:var(--gold)}.pf-red{background:var(--red)}.pf-accent{background:var(--accent)}
+.prob-row{display:flex;align-items:center;gap:8px}
+.prob-bar{flex:1;height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
+.prob-val{font-size:11px;font-family:var(--mono);font-weight:700;min-width:34px;text-align:right}
+.loading{display:flex;align-items:center;justify-content:center;padding:52px;color:var(--text2);font-size:13px;font-family:var(--mono);gap:12px}
+.spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err-box{background:var(--red-dim);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:12px 16px;color:#fca5a5;font-size:13px;font-family:var(--mono);margin:12px 0}
+.empty{text-align:center;padding:52px;color:var(--muted2);font-size:13px;font-family:var(--mono)}
+.stat-highlight{text-align:center;padding:20px}
+.stat-num{font-size:42px;font-weight:700;font-family:var(--mono);line-height:1;letter-spacing:-1px}
+.stat-num.green{color:var(--green);text-shadow:0 0 20px rgba(16,185,129,0.3)}
+.stat-num.accent{color:var(--accent);text-shadow:0 0 20px rgba(0,229,255,0.3)}
+.stat-num.gold{color:var(--gold)}.stat-num.red{color:var(--red)}
+.stat-label{font-size:10px;font-family:var(--mono);color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-top:6px}
+.grade{font-family:var(--mono);font-weight:700}
+.grade-A{color:var(--green)}.grade-B{color:#34d399}.grade-C{color:var(--gold)}.grade-D{color:var(--orange)}.grade-F{color:var(--red)}
+.inj-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.inj-item:last-child{border-bottom:none}
+.inj-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.inj-il{background:var(--red);box-shadow:0 0 6px var(--red)}.inj-dtd{background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.inj-name{font-weight:600;font-size:14px}.inj-status{font-size:11px;color:var(--text2);font-family:var(--mono);margin-top:1px}
+.move-card{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-bottom:10px}
+.move-grid{display:grid;grid-template-columns:1fr 32px 1fr;gap:10px;align-items:center;margin:10px 0}
+.move-side{background:var(--surface3);border-radius:6px;padding:10px}
+.move-slabel{font-size:9px;font-family:var(--mono);letter-spacing:1px;font-weight:700;margin-bottom:4px}
+.move-slabel.add{color:var(--green)}.move-slabel.drop{color:var(--red)}
+.move-name{font-weight:600;font-size:14px}.move-type{font-size:11px;color:var(--text2);font-family:var(--mono)}
+.trade-card{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:18px;margin-bottom:12px;transition:border-color 0.2s}
+.trade-card:hover{border-color:rgba(0,229,255,0.2)}
+.sim-row{display:grid;grid-template-columns:1fr 40px 1fr auto;gap:12px;align-items:end;margin-bottom:16px}
+.sim-label{font-size:10px;font-family:var(--mono);color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.sim-input{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:6px;font-size:13px;transition:border-color 0.15s}
+.sim-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+.sim-arrow{text-align:center;color:var(--accent);font-size:18px;padding-bottom:8px}
+.btn-primary{background:var(--accent);color:var(--bg);border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;font-family:var(--mono);letter-spacing:0.5px;transition:all 0.15s;white-space:nowrap}
+.btn-primary:hover{box-shadow:var(--glow);transform:translateY(-1px)}
+.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none}
+.cat-row{display:grid;grid-template-columns:70px 1fr 80px 80px 1fr 70px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.cat-row:last-child{border-bottom:none}
+.cat-name{font-family:var(--mono);font-weight:700;font-size:11px;color:var(--muted2)}
+.report-body{font-size:14px;line-height:1.8;max-width:860px}
+.report-body h1{font-size:20px;font-weight:700;margin:0 0 16px;color:var(--accent);font-family:var(--mono)}
+.report-body h2{font-size:16px;font-weight:700;margin:24px 0 10px;border-bottom:1px solid var(--border2);padding-bottom:6px;font-family:var(--mono)}
+.report-body h3{font-size:14px;font-weight:600;margin:16px 0 8px;color:#a78bfa}
+.report-body p{margin:6px 0}.report-body li{margin:4px 0 4px 16px}
+.report-body em{color:var(--text2);font-style:italic}.report-body strong{font-weight:600}
+.report-body code{font-family:var(--mono);background:var(--surface2);padding:1px 5px;border-radius:3px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+  <div class="logo"><div class="logo-diamond"></div>YAHOO · AI GM</div>
+  <div class="header-right">
+    <div class="week-badge" id="weekBadge">WEEK —</div>
+    <div class="health-ind"><div class="health-dot" id="hDot"></div><span id="hText">CONNECTING</span></div>
+  </div>
+</header>
+<aside>
+  <div class="nav-label">Overview</div>
+  <div class="nav-item active" data-tab="dashboard"><span class="nav-icon">⬡</span> Dashboard</div>
+  <div class="nav-item" data-tab="matchup"><span class="nav-icon">⚔</span> Matchup</div>
+  <div class="nav-label">Roster Moves</div>
+  <div class="nav-item" data-tab="waivers"><span class="nav-icon">↑</span> Waivers</div>
+  <div class="nav-item" data-tab="adddrop"><span class="nav-icon">⇄</span> Add / Drop</div>
+  <div class="nav-item" data-tab="trades"><span class="nav-icon">⇌</span> Trades</div>
+  <div class="nav-label">Intelligence</div>
+  <div class="nav-item" data-tab="standings"><span class="nav-icon">▲</span> Standings</div>
+  <div class="nav-item" data-tab="league"><span class="nav-icon">◈</span> League Intel</div>
+  <div class="nav-label">Roster</div>
+  <div class="nav-item" data-tab="roster"><span class="nav-icon">◎</span> Roster Health</div>
+  <div class="nav-item" data-tab="report"><span class="nav-icon">≡</span> Daily Report</div>
+</aside>
+<main>
+<!-- DASHBOARD -->
+<div class="tab-page active" id="tab-dashboard">
+  <div class="page-header">
+    <div><div class="page-title">Command Center</div><div class="page-sub" id="dashSub">Loading...</div></div>
+    <button class="refresh-btn" onclick="loadDashboard()">↻ Refresh</button>
+  </div>
+  <div class="g4" id="dashKPIs"></div>
+  <div class="g2">
+    <div class="card"><div class="card-label">This Week's Matchup</div><div id="dashMatchup"><div class="loading"><div class="spin"></div>Loading</div></div></div>
+    <div class="card"><div class="card-label">Injury Monitor</div><div id="dashIL"><div class="loading"><div class="spin"></div>Loading</div></div></div>
+  </div>
+  <div class="card"><div class="card-label">League Standings — Projected</div><div id="dashStandings"><div class="loading"><div class="spin"></div>Loading</div></div></div>
+</div>
+
+<!-- MATCHUP -->
+<div class="tab-page" id="tab-matchup">
+  <div class="page-header"><div><div class="page-title">Matchup Projection</div></div><button class="refresh-btn" onclick="loadMatchup()">↻ Refresh</button></div>
+  <div id="matchupContent"><div class="loading"><div class="spin"></div>Loading</div></div>
+</div>
+
+<!-- WAIVERS -->
+<div class="tab-page" id="tab-waivers">
+  <div class="page-header"><div><div class="page-title">Waivers & Streaming</div></div><button class="refresh-btn" onclick="loadWaivers()">↻ Refresh</button></div>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="subTab(event,'waivers','waiver-recs')">Recommendations</button>
+    <button class="sub-tab" onclick="subTab(event,'waivers','streaming-sp')">Streaming SP</button>
+  </div>
+  <div id="waiver-recs"><div class="loading"><div class="spin"></div>Loading</div></div>
+  <div id="streaming-sp" style="display:none"></div>
+</div>
+
+<!-- ADD/DROP -->
+<div class="tab-page" id="tab-adddrop">
+  <div class="page-header"><div><div class="page-title">Add / Drop Simulation</div></div><button class="refresh-btn" onclick="loadAddDrop()">↻ Refresh</button></div>
+  <div id="addDropContent"><div class="loading"><div class="spin"></div>Loading</div></div>
+</div>
+
+<!-- TRADES -->
+<div class="tab-page" id="tab-trades">
+  <div class="page-header"><div><div class="page-title">Trade Center</div></div><button class="refresh-btn" onclick="loadTrades()">↻ Refresh</button></div>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="subTab(event,'trades','trade-suggestions')">Suggestions</button>
+    <button class="sub-tab" onclick="subTab(event,'trades','trade-simulator')">What-If Simulator</button>
+    <button class="sub-tab" onclick="subTab(event,'trades','trade-multi')">Multi-Player</button>
+  </div>
+  <div id="trade-suggestions"><div class="loading"><div class="spin"></div>Loading</div></div>
+  <div id="trade-simulator" style="display:none">
+    <div class="card accent-border">
+      <div class="card-label">What-If Trade Simulator</div>
+      <div class="sim-row">
+        <div><div class="sim-label">I Give Away</div><input class="sim-input" id="simGive" placeholder="e.g. Ryan Helsley" list="rosterDL"></div>
+        <div class="sim-arrow">→</div>
+        <div><div class="sim-label">I Receive</div><input class="sim-input" id="simReceive" placeholder="e.g. Tarik Skubal"></div>
+        <button class="btn-primary" id="simBtn" onclick="runSim()">ANALYZE</button>
+      </div>
+      <datalist id="rosterDL"></datalist>
+      <div id="simResult"></div>
+    </div>
+  </div>
+  <div id="trade-multi" style="display:none"><div class="loading"><div class="spin"></div>Loading</div></div>
+</div>
+
+<!-- STANDINGS -->
+<div class="tab-page" id="tab-standings">
+  <div class="page-header"><div><div class="page-title">Standings Trajectory</div></div><button class="refresh-btn" onclick="loadStandings()">↻ Refresh</button></div>
+  <div id="standingsContent"><div class="loading"><div class="spin"></div>Loading</div></div>
+</div>
+
+<!-- LEAGUE INTEL -->
+<div class="tab-page" id="tab-league">
+  <div class="page-header"><div><div class="page-title">League Intelligence</div></div><button class="refresh-btn" onclick="loadLeague()">↻ Refresh</button></div>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="subTab(event,'league','league-construction')">Roster Construction</button>
+    <button class="sub-tab" onclick="subTab(event,'league','league-opponents')">Opponent Profiles</button>
+  </div>
+  <div id="league-construction"><div class="loading"><div class="spin"></div>Loading</div></div>
+  <div id="league-opponents" style="display:none"></div>
+</div>
+
+<!-- ROSTER -->
+<div class="tab-page" id="tab-roster">
+  <div class="page-header"><div><div class="page-title">Roster Health</div></div><button class="refresh-btn" onclick="loadRoster()">↻ Refresh</button></div>
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="subTab(event,'roster','roster-il')">Injuries</button>
+    <button class="sub-tab" onclick="subTab(event,'roster','roster-ratio')">Ratio Risk</button>
+    <button class="sub-tab" onclick="subTab(event,'roster','roster-value')">Trade Value</button>
+  </div>
+  <div id="roster-il"><div class="loading"><div class="spin"></div>Loading</div></div>
+  <div id="roster-ratio" style="display:none"></div>
+  <div id="roster-value" style="display:none"></div>
+</div>
+
+<!-- REPORT -->
+<div class="tab-page" id="tab-report">
+  <div class="page-header"><div><div class="page-title">Daily Report</div></div><button class="refresh-btn" onclick="loadReport()">↻ Refresh</button></div>
+  <div class="card"><div id="reportContent"><div class="loading"><div class="spin"></div>Loading</div></div></div>
+</div>
+
+</main>
+</div>
+<script>
+const API='';
+const ld=id=>document.getElementById(id).innerHTML='<div class="loading"><div class="spin"></div>Loading</div>';
+const er=(id,msg)=>document.getElementById(id).innerHTML=`<div class="err-box">⚠ ${msg}</div>`;
+const el=id=>document.getElementById(id);
+const fmt=(v,d=1)=>typeof v==='number'?v.toFixed(d):(v??'—');
+const fmtS=(v,cat)=>['AVG','ERA','WHIP','FIP'].includes(cat)?fmt(v,3):fmt(v,1);
+function badge(t,c){return`<span class="badge b-${c}">${t}</span>`}
+function pColor(p){return p>=0.65?'var(--green)':p>=0.45?'var(--gold)':'var(--red)'}
+function pBar(p){const c=p>=0.65?'pf-green':p>=0.45?'pf-gold':'pf-red';return`<div class="prob-row"><div class="prob-bar"><div class="prog-fill ${c}" style="width:${(p||0)*100}%"></div></div><div class="prob-val" style="color:${pColor(p)}">${((p||0)*100).toFixed(0)}%</div></div>`}
+async function get(path){const r=await fetch(API+path);if(!r.ok)throw new Error(`${r.status}: ${r.statusText}`);return r.json()}
+
+const loaders={dashboard:loadDashboard,matchup:loadMatchup,waivers:loadWaivers,adddrop:loadAddDrop,trades:loadTrades,standings:loadStandings,league:loadLeague,roster:loadRoster,report:loadReport};
+document.querySelectorAll('.nav-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const tab=item.dataset.tab;
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    item.classList.add('active');
+    document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+    el('tab-'+tab).classList.add('active');
+    if(loaders[tab])loaders[tab]();
+  });
+});
+
+const SUB_IDS=['waiver-recs','streaming-sp','trade-suggestions','trade-simulator','trade-multi','league-construction','league-opponents','roster-il','roster-ratio','roster-value'];
+function subTab(event,section,targetId){
+  const page=el('tab-'+section);
+  page.querySelectorAll('.sub-tab').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  SUB_IDS.forEach(id=>{const e=el(id);if(e)e.style.display='none';});
+  const target=el(targetId);
+  if(target)target.style.display='';
+  const lazy={
+    'streaming-sp':()=>target.innerHTML.trim()===''&&loadStreamingSP(),
+    'trade-multi':()=>{},
+    'trade-simulator':()=>populateRosterDL(),
+    'league-opponents':()=>target.innerHTML.includes('Loading')&&loadOpponents(),
+    'roster-ratio':()=>target.innerHTML.trim()===''&&loadRatioRisk(),
+    'roster-value':()=>target.innerHTML.trim()===''&&loadTradeValue()
+  };
+  if(lazy[targetId])lazy[targetId]();
+}
+
+async function checkHealth(){
+  try{await get('/health');el('hDot').className='health-dot';el('hText').textContent='ONLINE';}
+  catch{el('hDot').className='health-dot dead';el('hText').textContent='OFFLINE';}
+}
+
+async function loadDashboard(){
+  el('dashKPIs').innerHTML='<div class="loading" style="grid-column:1/-1"><div class="spin"></div>Loading</div>';
+  try{
+    const[standings,matchup]=await Promise.all([get('/standings'),get('/matchup')]);
+    el('weekBadge').textContent=`WEEK ${standings.current_week||1}`;
+    el('dashSub').textContent=`Get a WHIFF of THIS! · Week ${standings.current_week||1}`;
+    const rec=standings.my_projected_record||{};
+    const cats=matchup.categories||[];
+    const mw=cats.filter(c=>c.result==='win').length,ml=cats.filter(c=>c.result==='loss').length,mt=cats.filter(c=>c.result==='toss-up').length;
+    const pp=standings.playoff_probability||0;
+    el('dashKPIs').innerHTML=`
+      <div class="card"><div class="stat-highlight"><div class="stat-num accent">${rec.wins||0}–${rec.losses||0}</div><div class="stat-label">Projected Record</div></div></div>
+      <div class="card"><div class="stat-highlight"><div class="stat-num gold">#${standings.my_projected_rank||'?'}</div><div class="stat-label">Standing of 10</div></div></div>
+      <div class="card"><div class="stat-highlight"><div class="stat-num ${pp>=0.7?'green':'gold'}">${(pp*100).toFixed(0)}%</div><div class="stat-label">Playoff Probability</div></div><div class="prog"><div class="prog-fill ${pp>=0.7?'pf-green':'pf-gold'}" style="width:${pp*100}%"></div></div></div>
+      <div class="card"><div class="stat-highlight"><div class="stat-num ${mw>ml?'green':mw<ml?'red':'gold'}">${mw}–${ml}–${mt}</div><div class="stat-label">This Week vs ${matchup.opp_team?.name||'?'}</div></div></div>`;
+    const swing=matchup.swing_categories||[];
+    el('dashMatchup').innerHTML=`<div style="font-size:13px;color:var(--text2);margin-bottom:10px;font-family:var(--mono)">vs <strong style="color:var(--text)">${matchup.opp_team?.name}</strong></div><div style="display:flex;flex-wrap:wrap;gap:5px">${cats.map(c=>badge(c.cat,c.result==='win'?'win':c.result==='loss'?'loss':'toss')).join('')}</div>${swing.length?`<div style="margin-top:10px;font-size:11px;color:var(--muted2);font-family:var(--mono)">SWING: ${swing.join(', ')}</div>`:''}`;
+    loadDashIL();
+    const rows=(standings.all_standings||[]).map(t=>{const me=t.team&&t.team.includes('WHIFF');return`<tr class="${me?'me':''}"><td style="font-family:var(--mono);font-weight:700">${t.rank}</td><td>${t.team}${me?' <span style="color:var(--accent);font-size:10px;font-family:var(--mono)">← YOU</span>':''}</td><td style="font-family:var(--mono)">${t.wins}</td><td style="font-family:var(--mono)">${t.losses}</td><td style="min-width:120px">${pBar(t.playoff_probability)}</td></tr>`;}).join('');
+    el('dashStandings').innerHTML=`<div class="tbl-wrap"><table><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>Playoff%</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }catch(e){er('dashKPIs',e.message);}
+}
+
+async function loadDashIL(){
+  try{
+    const snap=await get('/snapshot');
+    const injured=(snap.players||[]).filter(p=>p.status);
+    if(!injured.length){el('dashIL').innerHTML='<div style="color:var(--green);font-family:var(--mono);font-size:13px;padding:8px 0">✓ No current injuries</div>';}
+    else{el('dashIL').innerHTML=injured.map(p=>`<div class="inj-item"><div class="inj-dot ${p.on_il?'inj-il':'inj-dtd'}"></div><div><div class="inj-name">${p.name}</div><div class="inj-status">${p.status_full||p.status}</div></div></div>`).join('');}
+  }catch{el('dashIL').innerHTML='<div class="err-box">Could not load</div>';}
+}
+
+async function loadMatchup(){
+  ld('matchupContent');
+  try{
+    const d=await get('/matchup');
+    const cats=d.categories||[];
+    const wins=cats.filter(c=>c.result==='win').length,losses=cats.filter(c=>c.result==='loss').length,toss=cats.filter(c=>c.result==='toss-up').length;
+    const catRows=cats.map(c=>{const iW=c.result==='win',iL=c.result==='loss';return`<div class="cat-row"><div class="cat-name">${c.cat}${c.is_swing?' 🎯':''}</div><div style="text-align:right;font-weight:600;color:${iW?'var(--green)':iL?'var(--text2)':'var(--gold)'}">${fmtS(c.my_value,c.cat)}</div><div style="text-align:center">${badge(c.result,iW?'win':iL?'loss':'toss')}</div><div style="text-align:center;font-size:11px;color:var(--muted2);font-family:var(--mono)">${c.confidence||''}</div><div style="font-weight:600;color:${iL?'var(--green)':iW?'var(--text2)':'var(--gold)'}">${fmtS(c.opp_value,c.cat)}</div><div class="cat-name" style="text-align:right">${c.cat}</div></div>`;}).join('');
+    el('matchupContent').innerHTML=`<div class="g3"><div class="card" style="text-align:center"><div class="card-label">My Team</div><div style="font-size:16px;font-weight:600">${d.my_team?.name}</div></div><div class="card" style="text-align:center"><div class="card-label">Projected Result</div><div class="stat-num ${wins>losses?'green':wins<losses?'red':'gold'}" style="font-size:36px">${wins}–${losses}–${toss}</div></div><div class="card" style="text-align:center"><div class="card-label">Opponent</div><div style="font-size:16px;font-weight:600">${d.opp_team?.name}</div>${(d.swing_categories||[]).length?`<div style="font-size:11px;color:var(--text2);margin-top:6px;font-family:var(--mono)">Swing: ${d.swing_categories.join(', ')}</div>`:''}</div></div><div class="card"><div class="card-label">Category Breakdown</div>${catRows}</div>`;
+  }catch(e){er('matchupContent',e.message);}
+}
+
+async function loadWaivers(){
+  ld('waiver-recs');
+  try{
+    const d=await get('/waivers');const recs=d.recommendations||[];
+    if(!recs.length){el('waiver-recs').innerHTML='<div class="empty">No waiver recommendations.</div>';return;}
+    const rows=recs.map((r,i)=>`<tr><td style="font-family:var(--mono);color:var(--muted2)">${i+1}</td><td><strong>${r.add?.name||r.player_name||'?'}</strong></td><td style="color:var(--text2)">${r.drop?.name||r.drop_name||'—'}</td><td style="font-family:var(--mono)">${(r.score||r.waiver_score||0).toFixed(3)}</td><td>${(r.cats_improved||[]).map(c=>badge(c,'info')).join(' ')}</td><td style="font-size:12px;color:var(--text2)">${(r.cats_hurt||[]).join(', ')||'—'}</td></tr>`).join('');
+    el('waiver-recs').innerHTML=`<div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Add</th><th>Drop</th><th>Score</th><th>Improves</th><th>Costs</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }catch(e){er('waiver-recs',e.message);}
+}
+
+async function loadStreamingSP(){
+  el('streaming-sp').innerHTML='<div class="loading"><div class="spin"></div>Loading</div>';
+  try{
+    const d=await get('/streaming-sp');const cands=d.candidates||[];
+    const src=d.data_source==='mlb_api'?'Live MLB Probable Starters':'FG Projected Quality';
+    const rows=cands.map((c,i)=>`<tr><td style="font-family:var(--mono);color:var(--muted2)">${i+1}</td><td><strong>${c.name}</strong></td><td style="font-family:var(--mono)">${c.projections?.ERA?.toFixed(2)}</td><td style="font-family:var(--mono)">${c.projections?.WHIP?.toFixed(3)}</td><td style="font-family:var(--mono)">${c.projections?.['K/9']?.toFixed(1)}</td><td style="font-family:var(--mono)">${c.projected_starts}</td><td style="font-family:var(--mono)">${c.percent_owned?.toFixed(0)}%</td><td style="font-family:var(--mono);color:var(--accent)">${c.streaming_score?.toFixed(2)}</td><td>${(c.cats_addressed||[]).map(x=>badge(x,'info')).join(' ')}</td></tr>`).join('');
+    el('streaming-sp').innerHTML=`<div class="card"><div class="card-label">Streaming SP · ${src}</div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:12px">Targeting: ${(d.opponent_weaknesses||[]).join(', ')||'—'}</div><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Pitcher</th><th>ERA</th><th>WHIP</th><th>K/9</th><th>Starts</th><th>Owned</th><th>Score</th><th>Addresses</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }catch(e){el('streaming-sp').innerHTML=`<div class="err-box">⚠ ${e.message}</div>`;}
+}
+
+async function loadAddDrop(){
+  ld('addDropContent');
+  try{
+    const d=await get('/adddrop');
+    const before=d.projected_record_before||{},after=d.projected_record_after||{},moves=d.moves||[],flipped=d.categories_flipped||[];
+    const moveCards=moves.map(m=>`<div class="move-card"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:var(--mono);font-size:11px;color:var(--muted2)">MOVE ${m.move_number}</span><span style="font-family:var(--mono);font-size:11px;color:var(--accent)">${(m.move_score||0).toFixed(3)}</span></div><div class="move-grid"><div class="move-side"><div class="move-slabel add">ADD</div><div class="move-name">${m.add?.name||'?'}</div><div class="move-type">${m.add?.type||''}</div></div><div style="text-align:center;color:var(--accent)">⇄</div><div class="move-side"><div class="move-slabel drop">DROP</div><div class="move-name">${m.drop?.name||'?'}</div><div class="move-type">${m.drop?.type||''}</div></div></div><div style="display:flex;gap:5px;flex-wrap:wrap">${(m.cats_improved||[]).map(c=>badge('+'+c,'win')).join('')}${(m.cats_hurt||[]).map(c=>badge('-'+c,'loss')).join('')}</div></div>`).join('');
+    el('addDropContent').innerHTML=`<div class="g3"><div class="card" style="text-align:center"><div class="card-label">Before</div><div class="stat-num" style="font-size:28px">${before.wins||0}–${before.losses||0}–${before.toss_ups||0}</div></div><div class="card" style="text-align:center"><div class="card-label">After ${d.move_count||0} Moves</div><div class="stat-num green" style="font-size:28px">${after.wins||0}–${after.losses||0}–${after.toss_ups||0}</div></div><div class="card"><div class="card-label">Categories Flipped</div><div style="display:flex;flex-wrap:wrap;gap:5px;padding-top:4px">${flipped.length?flipped.map(c=>badge(c,'win')).join(''):'<span style="color:var(--muted2);font-size:12px">None</span>'}</div></div></div><div>${moveCards}</div>`;
+  }catch(e){er('addDropContent',e.message);}
+}
+
+async function loadTrades(){
+  loadMultiTrades();
+  ld('trade-suggestions');
+  try{
+    const d=await get('/trades/acceptance?n=10');const suggs=d.suggestions||[];
+    if(!suggs.length){el('trade-suggestions').innerHTML='<div class="empty">No trade suggestions.</div>';return;}
+    const cards=suggs.map(s=>{
+      const acc=s.acceptance||{},prob=acc.acceptance_probability,verdict=acc.verdict||'UNKNOWN';
+      const vc=verdict==='LIKELY'?'likely':verdict==='POSSIBLE'?'possible':'unlikely';
+      return`<div class="trade-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px"><div><div style="font-weight:700;font-size:15px">Give <strong>${s.give?.name}</strong> → Receive <strong>${s.receive?.name}</strong></div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-top:3px">trade score: ${(s.trade_score||0).toFixed(3)}</div></div>${prob!=null?`<div style="text-align:right"><div style="font-size:26px;font-weight:700;font-family:var(--mono);color:${pColor(prob)}">${(prob*100).toFixed(0)}%</div><div style="margin-top:3px">${badge(verdict,vc)}</div></div>`:''}</div>${prob!=null?`<div class="prog" style="margin-bottom:10px"><div class="prog-fill" style="width:${prob*100}%;background:${pColor(prob)}"></div></div>`:''}<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">${(s.cats_improved||[]).map(c=>badge('+'+c,'win')).join('')}${(s.cats_hurt||[]).map(c=>badge('-'+c,'loss')).join('')}</div>${(acc.reasoning||[]).slice(0,2).map(r=>`<div style="font-size:11px;color:var(--muted2);font-family:var(--mono);padding:2px 0">· ${r}</div>`).join('')}</div>`;
+    }).join('');
+    el('trade-suggestions').innerHTML=cards;
+  }catch(e){er('trade-suggestions',e.message);}
+}
+
+async function loadMultiTrades(){
+  el('trade-multi').innerHTML='<div class="loading"><div class="spin"></div>Loading</div>';
+  try{
+    const d=await get('/trades/multi');const sizes=d.trade_sizes||{};let html='';
+    for(const[size,trades]of Object.entries(sizes)){
+      const rows=(trades||[]).slice(0,4).map(t=>`<div style="padding:12px 0;border-bottom:1px solid var(--border)"><div style="font-weight:600;margin-bottom:5px">Give: ${(t.give_players||[]).map(p=>p.name).join(", ")} → Receive: ${(t.receive_players||[]).map(p=>p.name).join(", ")}</div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:5px">score: ${(t.trade_score||0).toFixed(3)}</div><div style="display:flex;gap:5px;flex-wrap:wrap">${(t.cats_improved||[]).map(c=>badge('+'+c,'win')).join('')}${(t.cats_hurt||[]).map(c=>badge('-'+c,'loss')).join('')}</div></div>`).join('');
+      html+=`<div class="card"><div class="card-label">${size}</div>${rows}</div>`;
+    }
+    el('trade-multi').innerHTML=html||'<div class="empty">No multi-player trades.</div>';
+  }catch(e){el('trade-multi').innerHTML=`<div class="err-box">⚠ ${e.message}</div>`;}
+}
+
+async function populateRosterDL(){
+  try{const snap=await get('/snapshot');el('rosterDL').innerHTML=(snap.players||[]).map(p=>`<option value="${p.name}">`).join('');}catch{}
+}
+
+async function runSim(){
+  const give=el('simGive').value.trim(),recv=el('simReceive').value.trim();
+  if(!give||!recv){el('simResult').innerHTML='<div class="err-box">Enter both player names.</div>';return;}
+  const btn=el('simBtn');btn.disabled=true;btn.textContent='ANALYZING...';
+  el('simResult').innerHTML='<div class="loading"><div class="spin"></div>Running analysis</div>';
+  try{
+    const[accData,tvData]=await Promise.all([get('/trades/acceptance?n=20').catch(()=>({suggestions:[]})),get('/trade-value').catch(()=>({players:[]}))]);
+    const gL=give.toLowerCase(),rL=recv.toLowerCase();
+    const match=(accData.suggestions||[]).find(s=>{
+      const gn=(s.give?.name||'').toLowerCase(),rn=(s.receive?.name||'').toLowerCase();
+      return(gn.includes(gL)||gL.includes(gn.split(' ')[0]))&&(rn.includes(rL)||rL.includes(rn.split(' ')[0]));
+    });
+    const giveP=(tvData.players||[]).find(p=>(p.name||'').toLowerCase().includes(gL));
+    let html='<div style="margin-top:4px">';
+    if(match){
+      const acc=match.acceptance||{},prob=acc.acceptance_probability,verdict=acc.verdict||'UNKNOWN';
+      const vc=verdict==='LIKELY'?'likely':verdict==='POSSIBLE'?'possible':'unlikely';
+      html+=`<div class="g2" style="margin-bottom:14px"><div style="background:var(--surface2);border-radius:8px;padding:16px;text-align:center"><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:6px">TRADE SCORE</div><div style="font-size:40px;font-weight:700;font-family:var(--mono);color:var(--accent)">${(match.trade_score||0).toFixed(2)}</div></div><div style="background:var(--surface2);border-radius:8px;padding:16px;text-align:center"><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:6px">ACCEPTANCE PROBABILITY</div><div style="font-size:40px;font-weight:700;font-family:var(--mono);color:${pColor(prob||0)}">${prob!=null?(prob*100).toFixed(0)+'%':'N/A'}</div><div style="margin-top:6px">${badge(verdict,vc)}</div></div></div><div class="prog" style="margin-bottom:14px"><div class="prog-fill" style="width:${(prob||0)*100}%;background:${pColor(prob||0)}"></div></div><div style="margin-bottom:10px"><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:6px">CATEGORY IMPACT</div><div style="display:flex;gap:5px;flex-wrap:wrap">${(match.cats_improved||[]).map(c=>badge('+'+c,'win')).join('')}${(match.cats_hurt||[]).map(c=>badge('-'+c,'loss')).join('')}</div></div><div>${(acc.reasoning||[]).map(r=>`<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;font-family:var(--mono);color:var(--text2)">· ${r}</div>`).join('')}</div>`;
+    }else{
+      html+=`<div style="background:var(--surface2);border-radius:8px;padding:16px;color:var(--muted2);font-size:13px;font-family:var(--mono)">No pre-computed match for <strong style="color:var(--text)">${give}</strong> → <strong style="color:var(--text)">${recv}</strong>.<br><br>Try names from the Suggestions tab, or check spelling.</div>`;
+    }
+    if(giveP){
+      const sig=giveP.signal,sc=sig==='SELL_HIGH'?'win':sig==='CUT_BAIT'?'loss':'toss';
+      html+=`<div style="margin-top:12px;background:var(--surface2);border-radius:8px;padding:12px"><div style="font-size:10px;font-family:var(--mono);color:var(--muted2);margin-bottom:6px">TRADE VALUE: ${give.toUpperCase()}</div><div style="display:flex;align-items:center;gap:10px">${badge(sig.replace('_',' '),sc)}<span style="font-size:12px;font-family:var(--mono);color:var(--text2)">${giveP.primary_change}</span><span style="font-family:var(--mono);font-weight:700;color:${giveP.value_score>0?'var(--green)':'var(--red)'}">${giveP.value_score>0?'+':''}${giveP.value_score?.toFixed(2)}</span></div></div>`;
+    }
+    html+='</div>';
+    el('simResult').innerHTML=html;
+  }catch(e){el('simResult').innerHTML=`<div class="err-box">⚠ ${e.message}</div>`;}
+  finally{btn.disabled=false;btn.textContent='ANALYZE';}
+}
+
+async function loadStandings(){
+  ld('standingsContent');
+  try{
+    const d=await get('/standings');
+    const rec=d.my_projected_record||{},sched=(d.remaining_schedule||[]).slice(0,8),pp=d.playoff_probability||0;
+    const tRows=(d.all_standings||[]).map(t=>{const me=t.team&&t.team.includes('WHIFF');return`<tr class="${me?'me':''}"><td style="font-family:var(--mono);font-weight:700">${t.rank}</td><td>${t.team}${me?` <span style="color:var(--accent);font-size:10px;font-family:var(--mono)">← YOU</span>`:''}</td><td style="font-family:var(--mono)">${t.wins}</td><td style="font-family:var(--mono)">${t.losses}</td><td style="min-width:120px">${pBar(t.playoff_probability)}</td></tr>`;}).join('');
+    const sRows=sched.map(w=>`<tr><td style="font-family:var(--mono)">${w.week}</td><td>${w.opponent}</td><td style="font-family:var(--mono)">${w.projected||'—'}</td><td>${(w.swing_categories||[]).map(c=>badge(c,'info')).join(' ')||'—'}</td></tr>`).join('');
+    el('standingsContent').innerHTML=`<div class="g4"><div class="card"><div class="stat-highlight"><div class="stat-num accent" style="font-size:28px">${rec.wins||0}–${rec.losses||0}–${rec.toss_ups||0}</div><div class="stat-label">Projected Record</div></div></div><div class="card"><div class="stat-highlight"><div class="stat-num gold">#${d.my_projected_rank||'?'}</div><div class="stat-label">Projected Rank</div></div></div><div class="card"><div class="stat-highlight"><div class="stat-num ${pp>=0.7?'green':'gold'}">${(pp*100).toFixed(0)}%</div><div class="stat-label">Playoff Probability</div></div><div class="prog"><div class="prog-fill ${pp>=0.7?'pf-green':'pf-gold'}" style="width:${pp*100}%"></div></div></div><div class="card"><div class="stat-highlight"><div class="stat-num" style="font-size:28px">${(d.strength_of_schedule||0).toFixed(1)}</div><div class="stat-label">Strength of Schedule</div></div></div></div><div class="g2"><div class="card"><div class="card-label">Full League Standings</div><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>Playoff%</th></tr></thead><tbody>${tRows}</tbody></table></div></div><div class="card"><div class="card-label">Upcoming Schedule</div>${(d.hardest_weeks||[]).length?`<div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-bottom:10px">Hard Wks: ${(d.hardest_weeks||[]).join(', ')} · Easy: ${(d.easiest_weeks||[]).join(', ')}</div>`:''}<div class="tbl-wrap"><table><thead><tr><th>Wk</th><th>Opponent</th><th>Proj</th><th>Swing</th></tr></thead><tbody>${sRows}</tbody></table></div></div></div>`;
+  }catch(e){er('standingsContent',e.message);}
+}
+
+async function loadLeague(){
+  ld('league-construction');
+  try{
+    const d=await get('/league/construction');const my=d.my_construction||{},teams=d.all_teams||[];
+    const rows=teams.map(t=>{const me=t.team&&t.team.includes('WHIFF');return`<tr class="${me?'me':''}"><td><span class="grade grade-${t.grade}">${t.grade}</span></td><td>${t.team}${me?` <span style="color:var(--accent);font-size:10px;font-family:var(--mono)">← YOU</span>`:''}</td><td style="font-family:var(--mono)">${(t.score||0).toFixed(1)}</td><td>${(t.strengths||[]).slice(0,4).map(c=>badge(c,'win')).join(' ')||'—'}</td><td>${(t.weaknesses||[]).slice(0,4).map(c=>badge(c,'warn')).join(' ')||'—'}</td><td>${(t.black_holes||[]).map(c=>badge(c,'danger')).join(' ')||'—'}</td></tr>`;}).join('');
+    el('league-construction').innerHTML=`<div class="g3"><div class="card" style="text-align:center"><div class="card-label">My Construction Score</div><div style="padding:16px"><span style="font-size:52px;font-weight:700;font-family:var(--mono);color:var(--accent)">${(my.score||0).toFixed(0)}</span><span class="grade grade-${my.grade||'F'}" style="font-size:22px;margin-left:6px">${my.grade||'?'}</span></div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono)">out of 100</div></div><div class="card"><div class="card-label">My Strengths</div><div style="display:flex;flex-wrap:wrap;gap:5px;padding-top:4px">${(my.strengths||[]).map(c=>badge(c,'win')).join('')||'<span style="color:var(--muted2)">None</span>'}</div></div><div class="card"><div class="card-label">Weaknesses / Punting</div><div style="display:flex;flex-wrap:wrap;gap:5px;padding-top:4px">${(my.weaknesses||[]).map(c=>badge(c,'warn')).join('')}${(my.black_holes||[]).map(c=>badge(c,'danger')).join('')}${!(my.weaknesses||[]).length&&!(my.black_holes||[]).length?'<span style="color:var(--muted2)">None</span>':''}</div></div></div><div class="card"><div class="card-label">All Teams — Roster Construction</div><div class="tbl-wrap"><table><thead><tr><th>Grade</th><th>Team</th><th>Score</th><th>Strengths</th><th>Weaknesses</th><th>Punting</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }catch(e){er('league-construction',e.message);}
+}
+
+async function loadOpponents(){
+  el('league-opponents').innerHTML='<div class="loading"><div class="spin"></div>Loading</div>';
+  try{
+    const d=await get('/league/opponents');const opps=d.opponents||[];
+    const cards=opps.map(o=>`<div class="trade-card"><div style="margin-bottom:12px"><div style="font-weight:700;font-size:15px">${o.team}</div><div style="font-size:11px;color:var(--muted2);font-family:var(--mono);margin-top:3px">Rank #${o.rank} · Grade <span class="grade grade-${o.construction_grade}">${o.construction_grade}</span> (${(o.construction_score||0).toFixed(1)})</div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font-size:12px"><div><div style="font-size:10px;font-family:var(--mono);color:var(--muted2);margin-bottom:5px">ELITE</div><div style="display:flex;flex-wrap:wrap;gap:4px">${(o.elite_categories||[]).map(c=>badge(c,'win')).join('')||'<span style="color:var(--muted2)">None</span>'}</div></div><div><div style="font-size:10px;font-family:var(--mono);color:var(--muted2);margin-bottom:5px">PUNTING</div><div style="display:flex;flex-wrap:wrap;gap:4px">${(o.punt_categories||[]).map(c=>badge(c,'loss')).join('')||'<span style="color:var(--muted2)">None</span>'}</div></div><div><div style="font-size:10px;font-family:var(--mono);color:var(--muted2);margin-bottom:5px">TRADE NEEDS</div><div style="display:flex;flex-wrap:wrap;gap:4px">${(o.trade_motivations||[]).map(c=>badge(c,'warn')).join('')||'<span style="color:var(--muted2)">None</span>'}</div></div></div></div>`).join('');
+    el('league-opponents').innerHTML=cards||'<div class="empty">No opponent data.</div>';
+  }catch(e){el('league-opponents').innerHTML=`<div class="err-box">⚠ ${e.message}</div>`;}
+}
+
+async function loadRoster(){
+  ld('roster-il');
+  try{
+    const snap=await get('/snapshot');const injured=(snap.players||[]).filter(p=>p.status);
+    if(!injured.length){el('roster-il').innerHTML='<div class="card"><div style="color:var(--green);font-family:var(--mono);font-size:13px;text-align:center;padding:20px">✓ No current injuries</div></div>';}
+    else{el('roster-il').innerHTML=`<div class="card"><div class="card-label">Current Injuries</div>${injured.map(p=>`<div class="inj-item"><div class="inj-dot ${p.on_il?'inj-il':'inj-dtd'}"></div><div><div class="inj-name">${p.name}</div><div class="inj-status">${p.status_full||p.status}</div></div></div>`).join('')}</div>`;}
+  }catch(e){er('roster-il',e.message);}
+}
+
+async function loadRatioRisk(){
+  el('roster-ratio').innerHTML='<div class="loading"><div class="spin"></div>Loading</div>';
+  try{
+    const d=await get('/ratio-risk');const profiles=d.profiles||[];
+    const rows=profiles.map(p=>{
+      const rl=p.risk_label,rc=rl==='CRITICAL'?'danger':rl==='HIGH'?'warn':rl==='MEDIUM'?'possible':'info';
+      const rec=p.recommendation||'',recc=rec==='START'?'win':rec.includes('AVOID')?'loss':'toss';
+      return`<tr><td><strong>${p.name}</strong></td><td style="font-family:var(--mono);font-size:11px;color:var(--muted2)">${p.role}</td><td>${badge(rl,rc)}</td><td style="font-family:var(--mono)">${(p.risk_score||0).toFixed(1)}</td><td style="font-family:var(--mono)">${(p.projections?.ERA||0).toFixed(3)}</td><td style="font-family:var(--mono)">${(p.projections?.WHIP||0).toFixed(3)}</td><td style="font-family:var(--mono)">${(p.projections?.FIP||0).toFixed(3)}</td><td style="font-family:var(--mono)">${(p.projections?.['BB/9']||0).toFixed(2)}</td><td style="font-size:11px;color:var(--muted2);font-family:var(--mono)">${p.primary_driver||''}</td><td>${badge(rec.replace('_',' '),recc)}</td></tr>`;
+    }).join('');
+    el('roster-ratio').innerHTML=`<div class="card"><div class="card-label">Pitcher Ratio Risk Profiles</div><div class="tbl-wrap"><table><thead><tr><th>Pitcher</th><th>Role</th><th>Risk</th><th>Score</th><th>ERA</th><th>WHIP</th><th>FIP</th><th>BB/9</th><th>Driver</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }catch(e){el('roster-ratio').innerHTML=`<div class="err-box">⚠ ${e.message}</div>`;}
+}
+
+async function loadTradeValue(){
+  el('roster-value').innerHTML='<div class="loading"><div class="spin"></div>Loading</div>';
+  try{
+    const d=await get('/trade-value');const players=d.players||[];
+    const sell=players.filter(p=>p.signal==='SELL_HIGH'),cut=players.filter(p=>p.signal==='CUT_BAIT');
+    const rows=players.map(p=>{
+      const sc=p.signal==='SELL_HIGH'?'win':p.signal==='CUT_BAIT'?'loss':p.signal==='WATCH'?'toss':'info',v=p.value_score;
+      return`<tr><td><strong>${p.name}</strong></td><td style="font-size:11px;font-family:var(--mono);color:var(--muted2)">${p.type}</td><td style="font-family:var(--mono)">Wk ${p.week_acquired}</td><td>${badge(p.signal.replace('_',' '),sc)}</td><td style="font-family:var(--mono);font-weight:700;color:${v>0?'var(--green)':v<0?'var(--red)':'var(--muted2)'}">${v>0?'+':''}${v?.toFixed(3)}</td><td style="font-size:11px;color:var(--muted2);font-family:var(--mono)">${p.primary_change}</td></tr>`;
+    }).join('');
+    let alerts='';
+    if(sell.length)alerts+=`<div class="card" style="border-color:rgba(16,185,129,0.3);margin-bottom:12px"><div class="card-label" style="color:var(--green)">Sell High</div>${sell.map(p=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between"><strong>${p.name}</strong><span style="font-family:var(--mono);color:var(--green)">+${(p.value_score||0).toFixed(2)}</span></div>`).join('')}</div>`;
+    if(cut.length)alerts+=`<div class="card" style="border-color:rgba(239,68,68,0.3);margin-bottom:12px"><div class="card-label" style="color:var(--red)">Cut Bait</div>${cut.map(p=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between"><strong>${p.name}</strong><span style="font-family:var(--mono);color:var(--red)">${(p.value_score||0).toFixed(2)}</span></div>`).join('')}</div>`;
+    el('roster-value').innerHTML=`${alerts}<div class="card"><div class="card-label">All Players — Projection Delta Since Acquisition</div><div class="tbl-wrap"><table><thead><tr><th>Player</th><th>Type</th><th>Acquired</th><th>Signal</th><th>Delta</th><th>Primary Change</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }catch(e){el('roster-value').innerHTML=`<div class="err-box">⚠ ${e.message}</div>`;}
+}
+
+async function loadReport(){
+  ld('reportContent');
+  try{
+    const r=await fetch('/report');const text=await r.text();
+    const html=text
+      .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+      .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+      .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/`(.+?)`/g,'<code>$1</code>')
+      .replace(/^_(.+)_$/gm,'<em>$1</em>')
+      .replace(/^- (.+)$/gm,'<li>$1</li>')
+      .replace(/^(\|.+\|)$/gm,(row)=>{if(row.includes('---'))return'';const cells=row.split('|').filter(c=>c.trim());return'<tr>'+cells.map(c=>`<td>${c.trim()}</td>`).join('')+'</tr>';})
+      .replace(/(<tr>.+<\/tr>\n?)+/g,m=>`<table>${m}</table>`)
+      .replace(/(<li>.+<\/li>\n?)+/g,m=>`<ul>${m}</ul>`)
+      .replace(/\n{2,}/g,'</p><p>')
+      .replace(/\n/g,'<br>');
+    el('reportContent').innerHTML=`<div class="report-body"><p>${html}</p></div>`;
+  }catch(e){er('reportContent',e.message);}
+}
+
+checkHealth();
+setInterval(checkHealth,30000);
+loadDashboard();
+</script>
+</body>
+</html>

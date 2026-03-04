@@ -21,6 +21,7 @@ class YahooClient:
     def from_local_config(cls) -> "YahooClient":
         settings = Settings.from_local_config()
         session = requests.Session()
+        # Yahoo Fantasy API is XML by default; we’ll parse later.
         session.headers.update({"Accept": "application/xml"})
         return cls(settings=settings, session=session)
 
@@ -33,12 +34,24 @@ class YahooClient:
         return {"Authorization": f"Bearer {token}"}
 
     def get(self, path: str, *, params: Optional[dict] = None, timeout: int = 30) -> str:
+        """
+        GET wrapper. `path` should be like 'league/mlb.l.40206' or 'users;use_login=1/...'
+        Returns raw XML text.
+        """
         url = YAHOO_FANTASY_API_BASE + path.lstrip("/")
-        resp = self.session.get(
-            url,
-            headers=self._auth_headers(),
-            params=params,
-            timeout=timeout,
-        )
+        resp = self.session.get(url, headers=self._auth_headers(), params=params, timeout=timeout)
+        resp.raise_for_status()
+        return resp.text
+
+    def post(self, path: str, *, body: str, timeout: int = 30) -> str:
+        """
+        POST wrapper for write operations (transactions).
+        `body` should be XML string.
+        Returns raw XML response text.
+        """
+        url = YAHOO_FANTASY_API_BASE + path.lstrip("/")
+        headers = self._auth_headers()
+        headers["Content-Type"] = "application/xml"
+        resp = self.session.post(url, headers=headers, data=body.encode("utf-8"), timeout=timeout)
         resp.raise_for_status()
         return resp.text
